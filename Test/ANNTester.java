@@ -24,7 +24,7 @@ public class ANNTester {
 		dataFormatter d = new dataFormatter();
     	DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-    	assertTrue(trainingAndTestSet[0].size() > trainingAndTestSet[1].size());
+    	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
 	}
 	//makes sure ANN doesn't crash!!
 	@Test
@@ -56,7 +56,7 @@ public class ANNTester {
 		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
 		testPerceptron p = new testPerceptron();
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
-		assertTrue(p.getPercentCorrect()>50); 
+		assertFalse(p.getPercentCorrect()<50); 
 	}
 	//makes sure percent correct is over 65. Working adequately
 	@Test
