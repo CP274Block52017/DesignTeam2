@@ -17,7 +17,7 @@ public class ANNTester {
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertTrue(trainingAndTestSet.length == 2);
 	}
-	//this is a test
+	//this is a test... but is it?
 	@Test
 	public void dataParsingSeperateSizes() {
 		dataFormatter d = new dataFormatter();
