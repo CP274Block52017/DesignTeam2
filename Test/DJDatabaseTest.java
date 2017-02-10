@@ -27,11 +27,15 @@ public class DJDatabaseTest {
 			initialize();
 			setUp = true;
 		}
-		String serverPort = "8889";
+		
+		//localhostID, username, and password are set to default MySQL
+		String localhostID = "8889";
+		String username = "root";
+		String password = "root";
 		CSVFileReader reader = new CSVFileReader();
 		DJList = reader.readFile("Data/DJIA_table.csv");
 		DJTableStrategy DJTableStrategy = new DJTableStrategy();
-		DJController = new TableController("jdbc:mysql://localhost:"+serverPort+"/omnipredictor?user=root&password=root",DJTableStrategy);
+		DJController = new TableController("jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password,DJTableStrategy);
 	}
 	
 	@Test

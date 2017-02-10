@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class MySQLInitializer {
 	Connection databaseConnection = null;
 	
-	//localhostID, username, and password are set to default MySQL
+	//localhostID, username, and password are set to default MySQL. There will be a serpate class to do this. 
 	private String localhostID = "8889";
 	private String username = "root";
 	private String password = "root";
