@@ -58,7 +58,7 @@ public class ANNTester {
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
 		assertTrue(p.getPercentCorrect()>50); 
 	}
-	//makes sure percent correct is over 65. Working adequately.
+	//makes sure percent correct is over 65. Working adequately
 	@Test
 	public void accuracyOver65() {
 		dataFormatter d = new dataFormatter();
