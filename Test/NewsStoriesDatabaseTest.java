@@ -70,6 +70,7 @@ public class NewsStoriesDatabaseTest {
 	
 	@After
 	public void cleanUp() throws SQLException{
+		//comment out deleteAll() if you want to check data in table
 		NSController.deleteAll();
 		
 	}
