@@ -10,7 +10,7 @@ import NeuralNetwork.testPerceptron;
 
 public class ANNTester {
 	
-	//tests functionality of dataFormatter. Makes sure separates into two sets
+	//tests functionality of dataFormatter. Makes sure separates into two sets.
 	@Test
 	public void dataParsing() {
 		dataFormatter d = new dataFormatter();
