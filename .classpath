@@ -4,10 +4,10 @@
 	<classpathentry kind="src" path="Test"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Johnm/workspace/Omnipredictor/Jars/neuroph-core-2.93.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Johnm/workspace/Omnipredictor/Jars/slf4j-api-1.7.22.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Johnm/workspace/Omnipredictor/Jars/slf4j-nop-1.7.22.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Johnm/workspace/Omnipredictor/Jars/mysql-connector-java-5.1.40-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Johnm/workspace/Omnipredictor/Jars/opencsv-3.9.jar"/>
+	<classpathentry kind="lib" path="/Users/Eli/Documents/workspace/OmniPredictor/Jars/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/Eli/Documents/workspace/OmniPredictor/Jars/neuroph-core-2.93.jar"/>
+	<classpathentry kind="lib" path="/Users/Eli/Documents/workspace/OmniPredictor/Jars/opencsv-3.9.jar"/>
+	<classpathentry kind="lib" path="/Users/Eli/Documents/workspace/OmniPredictor/Jars/slf4j-api-1.7.22.jar"/>
+	<classpathentry kind="lib" path="/Users/Eli/Documents/workspace/OmniPredictor/Jars/slf4j-nop-1.7.22.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

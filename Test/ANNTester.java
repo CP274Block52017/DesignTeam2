@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.neuroph.core.data.DataSet;
 
 import NeuralNetwork.dataFormatter;
-import NeuralNetwork.testPerceptron;
+import NeuralNetwork.Perceptron;
 
 public class ANNTester {
 	
@@ -32,7 +32,7 @@ public class ANNTester {
 		dataFormatter d = new dataFormatter();
 		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
 		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		testPerceptron p = new testPerceptron();
+		Perceptron p = new Perceptron();
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
 		p.print();
 		assertTrue(true); //it doesn't crash!!
@@ -43,7 +43,7 @@ public class ANNTester {
 		dataFormatter d = new dataFormatter();
 		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
 		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		testPerceptron p = new testPerceptron();
+		Perceptron p = new Perceptron();
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
 		double percentCorrect = p.getPercentCorrect();
 		assertTrue((percentCorrect > 0) && (percentCorrect < 100.01)); 
@@ -54,7 +54,7 @@ public class ANNTester {
 		dataFormatter d = new dataFormatter();
 		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
 		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		testPerceptron p = new testPerceptron();
+		Perceptron p = new Perceptron();
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
 		assertTrue(p.getPercentCorrect()>50); 
 	}
@@ -64,7 +64,7 @@ public class ANNTester {
 		dataFormatter d = new dataFormatter();
 		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
 		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		testPerceptron p = new testPerceptron();
+		Perceptron p = new Perceptron();
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
 		assertTrue(p.getPercentCorrect()>70); 
 	}
