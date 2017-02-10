@@ -72,7 +72,7 @@ public class DJDatabaseTest {
 	
 	@After
 	public void cleanUp() throws SQLException{
-		//comment out deleteAll() if you want to check data in table
+		//comment out deleteAll() if you want to check data in omnipredictor tables
 		DJController.deleteAll();
 		
 	}
