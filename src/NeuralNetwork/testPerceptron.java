@@ -40,7 +40,6 @@ public class testPerceptron {
 
     }
     
-
  
     private static int maxOutput(double[] array) {
         double max = array[0];
