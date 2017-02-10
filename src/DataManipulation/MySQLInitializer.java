@@ -8,6 +8,13 @@ import java.sql.Statement;
 public class MySQLInitializer {
 	Connection databaseConnection = null;
 	
+	//localhostID, username, and password are set to default MySQL. There will be a separate class to do this. 
+	private String localhostID = "8889";
+	private String username = "root";
+	private String password = "root";
+	private String mySQLConnectionAddress = "jdbc:mysql://localhost:" + localhostID + "/?user=" + username + "&password=" + password;
+	private String databaseConnectionAddress = "jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password;
+
 	public void setUp() throws SQLException{
 		if(!DBExists()){
 			createDB();
@@ -18,7 +25,7 @@ public class MySQLInitializer {
 	
 	private boolean DBExists() throws SQLException{
 		String query = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'omnipredictor'";
-		Connection createConnection = DriverManager.getConnection("jdbc:mysql://localhost:8889/?user=root&password=root");
+		Connection createConnection = DriverManager.getConnection(mySQLConnectionAddress);
 		Statement databaseStatement = createConnection.createStatement();
 		ResultSet resultSet = databaseStatement.executeQuery(query);
 		if(resultSet.next()){
@@ -29,10 +36,10 @@ public class MySQLInitializer {
 	
 	private void createDB() throws SQLException{
 		String query = "create database omnipredictor";
-		Connection createConnection = DriverManager.getConnection("jdbc:mysql://localhost:8889/?user=root&password=root");
+		Connection createConnection = DriverManager.getConnection(mySQLConnectionAddress);
 		Statement databaseStatement = createConnection.createStatement();
 		databaseStatement.execute(query);
-		databaseConnection = DriverManager.getConnection("jdbc:mysql://localhost:8889/omnipredictor?user=root&password=root");
+		databaseConnection = DriverManager.getConnection(databaseConnectionAddress);
 	}
 	
 	private void createDJIATable() throws SQLException{

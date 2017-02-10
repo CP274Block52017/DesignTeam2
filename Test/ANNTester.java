@@ -10,7 +10,7 @@ import NeuralNetwork.Perceptron;
 
 public class ANNTester {
 	
-	//tests functionality of dataFormatter. Makes sure separates into two sets
+	//tests functionality of dataFormatter. Makes sure separates into two sets.
 	@Test
 	public void dataParsing() {
 		dataFormatter d = new dataFormatter();
@@ -37,7 +37,7 @@ public class ANNTester {
 		p.print();
 		assertTrue(true); //it doesn't crash!!
 	}
-	//makes sure percent correct is in proper range
+	//makes sure percent correct is in proper range.
 	@Test
 	public void getPercentCorrect() {
 		dataFormatter d = new dataFormatter();
@@ -58,7 +58,7 @@ public class ANNTester {
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
 		assertTrue(p.getPercentCorrect()>50); 
 	}
-	//makes sure percent correct is over 65. Working adequately.
+	//makes sure percent correct is over 65. Working adequately
 	@Test
 	public void accuracyOver65() {
 		dataFormatter d = new dataFormatter();
@@ -66,7 +66,7 @@ public class ANNTester {
 		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
 		Perceptron p = new Perceptron();
 		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
-		assertTrue(p.getPercentCorrect()>70); 
+		assertTrue(p.getPercentCorrect()>65); 
 	}
 	
 

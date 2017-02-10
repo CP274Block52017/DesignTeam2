@@ -27,10 +27,13 @@ public class NewsStoriesDatabaseTest {
 			setUp = true;
 		}
 		CSVFileReader reader = new CSVFileReader();
-		String serverPort = "8889";
+		//localhostID, username, and password are set to default MySQL
+		String localhostID = "8889";
+		String username = "root";
+		String password = "root";
 		NSList = reader.readFile("Data/RedditNews.csv");
 		NSTableStrategy NSTableStrategy = new NSTableStrategy();
-		NSController = new TableController("jdbc:mysql://localhost:"+serverPort+"/omnipredictor?user=root&password=root",NSTableStrategy);
+		NSController = new TableController("jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password,NSTableStrategy);
 	}
 	
 	@Test
@@ -67,6 +70,7 @@ public class NewsStoriesDatabaseTest {
 	
 	@After
 	public void cleanUp() throws SQLException{
+		//comment out deleteAll() if you want to check data in table
 		NSController.deleteAll();
 		
 	}
