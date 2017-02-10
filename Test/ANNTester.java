@@ -37,7 +37,7 @@ public class ANNTester {
 		p.print();
 		assertTrue(true); //it doesn't crash!!
 	}
-	//makes sure percent correct is in proper range
+	//makes sure percent correct is in proper range.
 	@Test
 	public void getPercentCorrect() {
 		dataFormatter d = new dataFormatter();
