@@ -18,7 +18,7 @@ public class ANNTester {
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertTrue(trainingAndTestSet.length == 2);
 	}
-	//tests functionality of dataFormatter. Makes sure separates into two one larger and one smaller set
+	//tests functionality of dataFormatter.. Makes sure separates into two one larger and one smaller set
 	@Test
 	public void dataParsingSeperateSizes() {
 		dataFormatter d = new dataFormatter();
