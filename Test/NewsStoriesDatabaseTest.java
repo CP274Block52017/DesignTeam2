@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import DataManipulation.*;
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
+import DataManipulation.DataObjectInterfaceClasses.NSObject;
 
 public class NewsStoriesDatabaseTest {
 	private List<String[]> NSList;

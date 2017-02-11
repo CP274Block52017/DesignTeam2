@@ -1,5 +1,8 @@
-package DataManipulation;
+package DataManipulation.ListStringArraystoDataObjectInterfaceClasses;
 import java.util.List;
+
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
+import DataManipulation.DataObjectInterfaceClasses.NSObject;
 
 public class ListStringArraysToNSObject implements ListStringArraysToDataObject {
 

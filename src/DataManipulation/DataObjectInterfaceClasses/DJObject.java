@@ -1,4 +1,4 @@
-package DataManipulation;
+package DataManipulation.DataObjectInterfaceClasses;
 import java.math.BigDecimal;
 
 public class DJObject implements DataObject{

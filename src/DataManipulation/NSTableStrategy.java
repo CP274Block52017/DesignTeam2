@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
+import DataManipulation.DataObjectInterfaceClasses.NSObject;
+
 public class NSTableStrategy implements TableStrategy{
 	
 	@Override

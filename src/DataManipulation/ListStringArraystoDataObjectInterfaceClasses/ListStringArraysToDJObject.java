@@ -1,7 +1,10 @@
-package DataManipulation;
+package DataManipulation.ListStringArraystoDataObjectInterfaceClasses;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import DataManipulation.DataObjectInterfaceClasses.DJObject;
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
 public class ListStringArraysToDJObject implements ListStringArraysToDataObject {
 	public List<DataObject> stringtoDataObject(List<String[]> file){

@@ -9,6 +9,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DataManipulation.DataObjectInterfaceClasses.DJObject;
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
+
 public class DJTableStrategy implements TableStrategy{
 	
 	@Override

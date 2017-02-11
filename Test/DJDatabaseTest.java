@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import DataManipulation.*;
+import DataManipulation.DataObjectInterfaceClasses.DJObject;
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
 public class DJDatabaseTest {
 	private List<String[]> DJList;
