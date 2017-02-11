@@ -8,8 +8,18 @@ import com.opencsv.CSVReader;
 
 public class CSVFileReader {
 	
-	public void testJohn(){
+	public void testJohn(String file){
+		FileReader fileReader; 
+		List<String[]> dataList = null;
 		
+		try{
+			fileReader = new FileReader(file);
+			CSVReader reader = new CSVReader(fileReader);
+			dataList = reader.readAll();
+			reader.close();
+		}
+		catch(FileNotFoundException e){}
+		catch(IOException e ){}
 	}
 	
 	public List<String[]> readFile(String file){
