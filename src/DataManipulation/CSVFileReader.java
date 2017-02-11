@@ -24,14 +24,11 @@ public class CSVFileReader {
 	}
 	
 	public void test(){
-<<<<<<< HEAD
 	//for john <3
-=======
-		//for john <3
+
 		while(true){
 			//please work
 		}
->>>>>>> refs/heads/sunnyBranch
 	}
 	
 	public List<String[]> readFile(String file){
