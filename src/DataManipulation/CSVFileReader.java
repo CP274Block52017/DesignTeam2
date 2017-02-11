@@ -8,6 +8,10 @@ import com.opencsv.CSVReader;
 
 public class CSVFileReader {
 	
+	public void testJohn(){
+		
+	}
+	
 	public List<String[]> readFile(String file){
 		FileReader fileReader; 
 		List<String[]> dataList = null;
