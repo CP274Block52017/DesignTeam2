@@ -10,7 +10,8 @@ import preprocessing.*;
 
 public class PPTest {
 	private List<DayStrings> dayStoriesList = new ArrayList<DayStrings>();
-//	private PreprocessingController preprocessingController = new PreprocessingController(GetWordCounts);
+	private StoryProcessingStrategy procStrategy = new RemovePrepositionsFromStory();
+	private PreprocessingController preprocessingController = new PreprocessingController(procStrategy);
 	@Before
 	public void setup(){
 		String dateString = "2016-07-01";
@@ -57,7 +58,13 @@ public class PPTest {
 	
 	@Test
 	public void getWordCountsForListOfDayStrings() {
-//		List<DayWordCount> wordCounts = preprocessingController.getWordCounts(dayStoriesList);
+		List<DayWordCount> dayWordCounts = preprocessingController.getWordCounts(dayStoriesList);
+		for(int i = 0; i < dayWordCounts.size(); i++){
+			WordCount[] wordCounts = dayWordCounts.get(i).getWordCountArray();
+			for(int j = 0; j < wordCounts.length; j++){
+				System.out.println(wordCounts[j].getWord() + " " + wordCounts[j].getWordCount());
+			}
+		}
 		assertTrue(dayStoriesList.size() == 2);
 	}
 }

@@ -14,7 +14,7 @@ public class PreprocessingController {
 	}
 	
 	public List<DayWordCount> getWordCounts(List<DayStrings> dayStoryList){
-		GetWordCounts getWordCounts = new GetWordCounts();
-		return getWordCounts.getWordCounts(dayStoryList);
+		GetWordCounts wordCounter = new GetWordCounts();
+		return wordCounter.getWordCounts(dayStoryList);
 	}
 }
