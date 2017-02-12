@@ -1,4 +1,4 @@
-package DataManipulation;
+package DataManipulation.DataObjectInterfaceClasses;
 
 public interface DataObject {
 	

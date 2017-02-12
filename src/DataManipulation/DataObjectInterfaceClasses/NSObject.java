@@ -1,4 +1,4 @@
-package DataManipulation;
+package DataManipulation.DataObjectInterfaceClasses;
 
 public class NSObject implements DataObject{
 	private java.sql.Date date;
