@@ -11,7 +11,6 @@ import preprocessing.*;
 
 public class PPTest {
 	private List<DayStrings> dayStoriesList = new ArrayList<DayStrings>();
-	private PreprocessingController preprocessingController = null;
 	private List<DayStrings> singleStoryDay = new ArrayList<DayStrings>();
 
 	private PreprocessingController preprocessingController = new PreprocessingController();
@@ -20,8 +19,7 @@ public class PPTest {
 	public void setup(){
 		String dateString = "2016-07-01";
 		java.sql.Date date = java.sql.Date.valueOf(dateString);
-		RemovePrepositionsStrategy removePrepositionsStrategy = new RemovePrepositionsStrategy();
-		preprocessingController = new PreprocessingController(removePrepositionsStrategy);
+		preprocessingController = new PreprocessingController();
 		String[] storyList = new String[2];
 		storyList[0] = "IMF chief backs Athens as permanent Olympic host";
 		storyList[1] = "The president of France says if Brexit won, so can Donald Trump";
@@ -108,7 +106,7 @@ public class PPTest {
 	
 	@Test
 	public void getWordCountsForListOfDayStrings() throws FileNotFoundException{
-		List<DayStrings> removedPrepsList = preprocessingController.processStories(singleStoryDay);
+		List<DayStrings> removedPrepsList = preprocessingController.removePrepositions(singleStoryDay);
 		List<DayWordCount> dayWordCounts = preprocessingController.getWordCounts(removedPrepsList);
 		for(DayWordCount i : dayWordCounts){
 			for(WordCount j : i.getWordCountArray()){
