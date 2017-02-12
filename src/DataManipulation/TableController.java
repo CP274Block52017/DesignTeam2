@@ -8,13 +8,15 @@ import java.text.ParseException;
 import java.util.List;
 
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
+import DataManipulation.ReturnSetStrategyInterfaceClasses.ReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy; 
 
 public class TableController {
 	private WriteStrategy tableInteractionStrategy;
 	private Connection databaseConnection;
+	private ReturnSetStrategy databaseReturnStrategy;
 	
-	public TableController(String databaseAddress, WriteStrategy databaseWriteStrategy) throws SQLException {
+	public TableController(WriteStrategy databaseWriteStrategy, ReturnSetStrategy databaseReturnStrategy, String databaseAddress) throws SQLException {
 		this.tableInteractionStrategy = databaseWriteStrategy;
 		this.databaseConnection = DriverManager.getConnection(databaseAddress);
 	}
@@ -23,7 +25,11 @@ public class TableController {
 		tableInteractionStrategy.writeToTable(list,databaseConnection);
 	}
 	
-	ResultSet retrieveData(Connection databaseConnection, String tableName, java.sql.Date startDate, java.sql.Date endDate)  throws SQLException{
+	public List<DataObject> returnSetStrategy(ResultSet resultSet) throws SQLException {
+		return databaseReturnStrategy.returnSetToDataObject(resultSet);
+	}
+	
+	public ResultSet retrieveDataFromDB(String tableName, String startDate, String endDate)  throws SQLException{
 		Statement databaseStatement = databaseConnection.createStatement();
 		String selectCommand = "SELECT * FROM "+ tableName +" WHERE date >= \""+ startDate +"\" AND date <= \""+ endDate +"\";";
 		ResultSet resultSet = databaseStatement.executeQuery(selectCommand);

@@ -1,4 +1,4 @@
-package DataManipulation.ReturnSetToDataObjectStrategyInterfaceClasses;
+package DataManipulation.ReturnSetStrategyInterfaceClasses;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.NSObject;
 
-public class NSReturnSetToDataObjectStrategy implements ReturnSetToDataObjectStrategy {
+public class NSReturnSetStrategy implements ReturnSetStrategy {
 
 	@Override
 	public List<DataObject> returnSetToDataObject(ResultSet resultSet) throws SQLException {

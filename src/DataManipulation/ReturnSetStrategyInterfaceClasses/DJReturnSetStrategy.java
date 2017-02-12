@@ -1,4 +1,4 @@
-package DataManipulation.ReturnSetToDataObjectStrategyInterfaceClasses;
+package DataManipulation.ReturnSetStrategyInterfaceClasses;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DJObject;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
-public class DJReturnSetToDataObjectStrategy implements ReturnSetToDataObjectStrategy {
+public class DJReturnSetStrategy implements ReturnSetStrategy {
 
 	@Override
 	public List<DataObject> returnSetToDataObject(ResultSet resultSet) throws SQLException {

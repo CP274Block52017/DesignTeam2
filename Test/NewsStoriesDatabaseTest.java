@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
@@ -11,9 +12,12 @@ import org.junit.Test;
 import DataManipulation.*;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.NSObject;
+import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
+import DataManipulation.ReturnSetStrategyInterfaceClasses.NSReturnSetStrategy;
+import DataManipulation.WriteStrategyInterfaceClasses.NSWriteStrategy;
 
 public class NewsStoriesDatabaseTest {
-	private List<String[]> NSList;
+	private List<DataObject> NSList;
 	private TableController NSController;
 	private static boolean setUp = false;
 	
@@ -33,41 +37,48 @@ public class NewsStoriesDatabaseTest {
 		String localhostID = "8889";
 		String username = "root";
 		String password = "root";
-		NSList = reader.readFile("Data/RedditNews.csv");
-		NSTableStrategy NSTableStrategy = new NSTableStrategy();
-		NSController = new TableController("jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password,NSTableStrategy);
+		List<String[]> stringList = reader.readFile("Data/RedditNews.csv");
+		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
+		NSList = conversion.stringtoDataObject(stringList);
+		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
+		NSReturnSetStrategy NSReturnStrategy = new NSReturnSetStrategy();
+		NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	}
 	
 	@Test
 	public void readWriteAllValuesCheckFirstDate() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
-		List<DataObject> returnList = NSController.retrieveDataFromDB();
+		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
+		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
-		assertEquals(correctDate,((NSObject) returnList.get(0)).getDate());
+		assertEquals(correctDate,((NSObject) dataObjectList.get(0)).getDate());
 	}
 	
 	@Test 
 	public void readWriteAllValuesCheckFirstOpeningValue() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
-		List<DataObject> returnList = NSController.retrieveDataFromDB();
+		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
+		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		String correctHeadline = "A 117-year-old woman in Mexico City finally received her birth certificate, and died a few hours later. Trinidad Alvarez Lira had waited years for proof that she had been born in 1898."; 
-		assertEquals(correctHeadline,((NSObject) returnList.get(0)).getHeadline());
+		assertEquals(correctHeadline,((NSObject) dataObjectList.get(0)).getHeadline());
 	}
 	
 	@Test 
 	public void readWriteAllValuesCheckLastDate() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
-		List<DataObject> returnList = NSController.retrieveDataFromDB();
+		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
+		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
-		assertEquals(correctDate,((NSObject) returnList.get(24)).getDate());
+		assertEquals(correctDate,((NSObject) dataObjectList.get(24)).getDate());
 	}
 	
 	@Test 
 	public void readWriteAllValuesCheckLastOpeningValue() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
-		List<DataObject> returnList = NSController.retrieveDataFromDB();
+		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
+		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		String correctHeadline = "Ozone layer hole seems to be healing - US &amp; UK team shows it's shrunk &amp; may slowly recover. \"If you had to have an ozone hole anywhere in the world, it'd be Antarctica because its not teeming with life. It showed us if we didnt back off with these chemicals, wed have a crisis.\"";
-		assertEquals(correctHeadline,((NSObject) returnList.get(24)).getHeadline());
+		assertEquals(correctHeadline,((NSObject) dataObjectList.get(24)).getHeadline());
 	}
 	
 	@After

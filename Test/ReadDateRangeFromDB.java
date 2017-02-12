@@ -41,7 +41,7 @@ public class ReadDateRangeFromDB {
 	
 	@Test
 	public void readFromLastTwoDaysReturnsCorrectValues() throws SQLException, ParseException {
-		List<DataObject> returnList = NSController.retrieveDataFromDB();
+		List<DataObject> returnList = NSController.retrieveDataFromDB("NewsHeadlines", );
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
 		assertEquals(correctDate,((NSObject) returnList.get(0)).getDate());
 
