@@ -17,7 +17,7 @@ public class DJWriteStrategy implements WriteStrategy {
 		String query = "insert into DJOpening (date, opening) values (?,?)";
 		int NumConvertedDataObjects = 25;
 		PreparedStatement preparedStatement = databaseConnection.prepareStatement(query);
-		for(int i=1;i<NumConvertedDataObjects + 1;i++){
+		for(int i=0;i<NumConvertedDataObjects;i++){
 			java.sql.Date sqlDate = file.get(i).getDate();
 			BigDecimal sqlDecimal = ((DJObject) file.get(i)).getOpeningValue();
 			preparedStatement.setDate(1, sqlDate);

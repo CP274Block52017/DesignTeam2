@@ -12,21 +12,22 @@ import DataManipulation.ReturnSetStrategyInterfaceClasses.ReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy; 
 
 public class TableController {
-	private WriteStrategy tableInteractionStrategy;
+	private WriteStrategy writeStrategy;
 	private Connection databaseConnection;
-	private ReturnSetStrategy databaseReturnStrategy;
+	private ReturnSetStrategy returnSetStrategy;
 	
-	public TableController(WriteStrategy databaseWriteStrategy, ReturnSetStrategy databaseReturnStrategy, String databaseAddress) throws SQLException {
-		this.tableInteractionStrategy = databaseWriteStrategy;
+	public TableController(WriteStrategy writeStrategy, ReturnSetStrategy returnSetStrategy, String databaseAddress) throws SQLException {
+		this.writeStrategy = writeStrategy;
+		this.returnSetStrategy = returnSetStrategy;
 		this.databaseConnection = DriverManager.getConnection(databaseAddress);
 	}
 	
 	public void writeListtoDB(List<DataObject> list) throws SQLException, ParseException{
-		tableInteractionStrategy.writeToTable(list,databaseConnection);
+		writeStrategy.writeToTable(list,databaseConnection);
 	}
 	
 	public List<DataObject> returnSetStrategy(ResultSet resultSet) throws SQLException {
-		return databaseReturnStrategy.returnSetToDataObject(resultSet);
+		return returnSetStrategy.returnSetToDataObject(resultSet);
 	}
 	
 	public ResultSet retrieveDataFromDB(String tableName, String startDate, String endDate)  throws SQLException{

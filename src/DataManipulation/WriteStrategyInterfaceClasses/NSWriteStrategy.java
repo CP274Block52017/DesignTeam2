@@ -16,7 +16,7 @@ public class NSWriteStrategy implements WriteStrategy {
 		String query = "insert into NewsHeadlines (date, headline) values (?,?)";
 		int NumConvertedDataObjects = 25;
 		PreparedStatement preparedStatement = databaseConnection.prepareStatement(query);
-		for(int i=1;i< NumConvertedDataObjects + 1;i++){
+		for(int i=0;i< NumConvertedDataObjects;i++){
 			java.sql.Date sqlDate = file.get(i).getDate();
 			String headline = ((NSObject) file.get(i)).getHeadline();
 			preparedStatement.setDate(1, sqlDate);

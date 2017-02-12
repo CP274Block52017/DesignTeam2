@@ -32,11 +32,11 @@ public class NewsStoriesDatabaseTest {
 			initialize();
 			setUp = true;
 		}
-		CSVFileReader reader = new CSVFileReader();
 		//localhostID, username, and password are set to default MySQL
 		String localhostID = "8889";
 		String username = "root";
 		String password = "root";
+		CSVFileReader reader = new CSVFileReader();
 		List<String[]> stringList = reader.readFile("Data/RedditNews.csv");
 		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
 		NSList = conversion.stringtoDataObject(stringList);
@@ -55,7 +55,7 @@ public class NewsStoriesDatabaseTest {
 	}
 	
 	@Test 
-	public void readWriteAllValuesCheckFirstOpeningValue() throws SQLException, ParseException {
+	public void readWriteAllValuesCheckFirstHeadline() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
@@ -64,7 +64,7 @@ public class NewsStoriesDatabaseTest {
 	}
 	
 	@Test 
-	public void readWriteAllValuesCheckLastDate() throws SQLException, ParseException {
+	public void readWriteAllValuesCheckTwentyFiveDate() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
@@ -73,7 +73,7 @@ public class NewsStoriesDatabaseTest {
 	}
 	
 	@Test 
-	public void readWriteAllValuesCheckLastOpeningValue() throws SQLException, ParseException {
+	public void readWriteAllValuesCheckTwentyFiveHeadline() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);

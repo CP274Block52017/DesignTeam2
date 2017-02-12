@@ -20,7 +20,7 @@ public class CSVFileReader {
 		}
 		catch(FileNotFoundException e){}
 		catch(IOException e ){}
-		
+		dataList.remove(0); //fix for loops
 		return dataList;
 	}
 }
