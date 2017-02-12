@@ -14,18 +14,17 @@ public class PPTest {
 	private PreprocessingController preprocessingController = null;
 	private List<DayStrings> singleStoryDay = new ArrayList<DayStrings>();
 
+	private PreprocessingController preprocessingController = new PreprocessingController();
 
 	@Before
 	public void setup(){
 		String dateString = "2016-07-01";
 		java.sql.Date date = java.sql.Date.valueOf(dateString);
-		String[] storyList = new String[4];
-		storyList[0] = "A 117-year-old woman in Mexico City finally received her birth certificate, and died a few hours later. Trinidad Alvarez Lira had waited years for proof that she had been born in 1898.";
-		storyList[1] = "IMF chief backs Athens as permanent Olympic host";
-		storyList[2] = "The president of France says if Brexit won, so can Donald Trump";
-		storyList[3] = "British Man Who Must Give Police 24 Hours' Notice of Sex Threatens Hunger Strike: The man is the subject of a sexual risk order despite having never been convicted of a crime.";
 		RemovePrepositionsStrategy removePrepositionsStrategy = new RemovePrepositionsStrategy();
 		preprocessingController = new PreprocessingController(removePrepositionsStrategy);
+		String[] storyList = new String[2];
+		storyList[0] = "IMF chief backs Athens as permanent Olympic host";
+		storyList[1] = "The president of France says if Brexit won, so can Donald Trump";
 		DayStrings dayStories = new DayStrings(date,storyList);
 		dayStoriesList.add(dayStories);
 		
@@ -48,7 +47,7 @@ public class PPTest {
 	public void dayStoryObjectCreatedForDayOneContainsCorrectStoryAtPositionOne() {
 		DayStrings firstDayStories = dayStoriesList.get(0);
 		String[] storyList = firstDayStories.getStringArray();
-		assertEquals(storyList[0],"A 117-year-old woman in Mexico City finally received her birth certificate, and died a few hours later. Trinidad Alvarez Lira had waited years for proof that she had been born in 1898.");
+		assertEquals(storyList[0],"IMF chief backs Athens as permanent Olympic host");
 	}
 	
 	@Test
@@ -59,14 +58,52 @@ public class PPTest {
 		java.sql.Date correctDate = java.sql.Date.valueOf(correctDateString);
 		assertEquals(date,correctDate);
 	}
+
+	public void removePrepositionsForDayOneWithTwoStoriesReturnsCorrectStringArray() throws FileNotFoundException {
+		List<DayStrings> removedPrepsList = preprocessingController.removePrepositions(dayStoriesList);
+		DayStrings firstDay = removedPrepsList.get(0);
+		String[] removedPrepArray= firstDay.getStringArray();
+		String[] correctArray = new String[12];
+		correctArray[0] = "imf";
+		correctArray[1] = "backs";
+		correctArray[2] = "athens";
+		correctArray[3] = "olympic";
+		correctArray[4] = "host";
+		correctArray[5] = "president";
+		correctArray[6] = "france";
+		correctArray[7] = "says";
+		correctArray[8] = "brexit";
+		correctArray[9] = "won";
+		correctArray[10] = "donald";
+		correctArray[11] = "trump";
+		assertArrayEquals(removedPrepArray,correctArray);
+	}
 	
 	@Test
-	public void removePrepositionsForDayOneWithOneStoryReturnsCorrectStringArray() throws FileNotFoundException {
-		List<DayStrings> removedPrepsList = preprocessingController.processStories(dayStoriesList);
-		DayStrings firstDayRemoved = removedPrepsList.get(0);
-		System.out.println(firstDayRemoved.toString());
-		
-		assertTrue(true);
+	public void removePrepositionsForDayTwoWithOneStoryReturnsCorrectStringArray() throws FileNotFoundException {
+		List<DayStrings> removedPrepsList = preprocessingController.removePrepositions(dayStoriesList);
+		DayStrings dayTwo = removedPrepsList.get(1);
+		String[] removedPrepArray= dayTwo.getStringArray();
+		String[] correctArray = new String[18];
+		correctArray[0] = "jamaica";
+		correctArray[1] = "proposes";
+		correctArray[2] = "marijuana";
+		correctArray[3] = "dispensers";
+		correctArray[4] = "tourists";
+		correctArray[5] = "airports";
+		correctArray[6] = "following";
+		correctArray[7] = "legalisation";
+		correctArray[8] = "kiosks";
+		correctArray[9] = "desks";
+		correctArray[10] = "give";
+		correctArray[11] = "people";
+		correctArray[12] = "license";
+		correctArray[13] = "purchase";
+		correctArray[14] = "ounces";
+		correctArray[15] = "drug";
+		correctArray[16] = "use";
+		correctArray[17] = "stay";
+		assertArrayEquals(removedPrepArray,correctArray);
 	}
 	
 	@Test
