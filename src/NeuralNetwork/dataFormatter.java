@@ -21,5 +21,7 @@ public class dataFormatter {
 		DataSet[] trainingAndTestSet = dataSet.createTrainingAndTestSubsets(70, 30);
 		return trainingAndTestSet;
 	}
+	
+	
 
 }
