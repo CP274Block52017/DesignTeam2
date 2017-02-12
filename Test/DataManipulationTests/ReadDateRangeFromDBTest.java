@@ -14,13 +14,13 @@ import org.junit.Test;
 import DataManipulation.*;
 import DataManipulation.DataObjectInterfaceClasses.DJObject;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
-import DataManipulation.DataObjectInterfaceClasses.NSObject;
+import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToDJObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DJReturnSetStrategy;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.NSReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DJWriteStrategy;
-import DataManipulation.WriteStrategyInterfaceClasses.NSWriteStrategy;
+import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
 public class ReadDateRangeFromDBTest {
 	private List<DataObject> DJList;
@@ -30,7 +30,8 @@ public class ReadDateRangeFromDBTest {
 	private static boolean setUp = false;
 	
 	CSVFileReader reader = new CSVFileReader();
-	private List<String[]> stringList = reader.readFile("Data/DJIA_table.csv");
+	private List<String[]> DJStringList = reader.readFile("Data/DJIA_table.csv");
+	private List<String[]> NSStringList = reader.readFile("Data/RedditNews.csv");
 
 
 	public void initialize() throws SQLException{
@@ -50,14 +51,14 @@ public class ReadDateRangeFromDBTest {
 		String password = "root";
 
 		ListStringArraysToDJObject DJconversion = new ListStringArraysToDJObject();
-		DJList = DJconversion.stringtoDataObject(stringList);
+		DJList = DJconversion.stringtoDataObject(DJStringList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
 		DJController = new TableController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	
 		ListStringArraysToNSObject NSconversion = new ListStringArraysToNSObject();
-		NSList = NSconversion.stringtoDataObject(stringList);
-		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
+		NSList = NSconversion.stringtoDataObject(NSStringList);
+		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		NSReturnSetStrategy NSReturnStrategy = new NSReturnSetStrategy();
 		NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 
@@ -84,20 +85,20 @@ public class ReadDateRangeFromDBTest {
 	}
 	
 	@Test
-	public void readWriteAllValuesCheckFirstDate() throws SQLException, ParseException {
+	public void readFromLastThreeDaysReturnsHeadlines() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-06-29" , "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		
 		String[] testList =  new String[dataObjectList.size()];
 		for(int i = 0; i < dataObjectList.size(); i++){
-			String headline = ((NSObject)dataObjectList.get(i)).getHeadline();
+			String headline = ((DateStringObject)dataObjectList.get(i)).getString();
 			testList[i] = headline;
 		}
 		
 		String[] correctList =  new String[dataObjectList.size()];
 		for(int i = 0; i < dataObjectList.size(); i++){
-			String headline = ((NSObject)NSList.get(i)).getHeadline();
+			String headline = ((DateStringObject)NSList.get(i)).getString();
 			correctList[i] = headline;
 		}
 		assertArrayEquals(correctList,testList);
@@ -106,6 +107,6 @@ public class ReadDateRangeFromDBTest {
 	@After
 	public void cleanUp() throws SQLException{
 		//comment out deleteAll() if you want to check data in omnipredictor tables
-		DJController.deleteAll();
+		//DJController.deleteAll();
 	}
 }

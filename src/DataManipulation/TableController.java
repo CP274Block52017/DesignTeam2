@@ -44,5 +44,8 @@ public class TableController {
 		databaseStatement = databaseConnection.createStatement();
 		deleteCommand = "DELETE FROM NewsHeadlines";
 		databaseStatement.execute(deleteCommand);
+		databaseStatement = databaseConnection.createStatement();
+		deleteCommand = "DELETE FROM WordCount";
+		databaseStatement.execute(deleteCommand);
 	}
 }

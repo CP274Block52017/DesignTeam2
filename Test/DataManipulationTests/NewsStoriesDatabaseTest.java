@@ -12,10 +12,10 @@ import org.junit.Test;
 
 import DataManipulation.*;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
-import DataManipulation.DataObjectInterfaceClasses.NSObject;
+import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.NSReturnSetStrategy;
-import DataManipulation.WriteStrategyInterfaceClasses.NSWriteStrategy;
+import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
 public class NewsStoriesDatabaseTest {
 	private List<DataObject> NSList;
@@ -41,7 +41,7 @@ public class NewsStoriesDatabaseTest {
 		List<String[]> stringList = reader.readFile("Data/RedditNews.csv");
 		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
 		NSList = conversion.stringtoDataObject(stringList);
-		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
+		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		NSReturnSetStrategy NSReturnStrategy = new NSReturnSetStrategy();
 		NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	}
@@ -52,7 +52,7 @@ public class NewsStoriesDatabaseTest {
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
-		assertEquals(correctDate,((NSObject) dataObjectList.get(0)).getDate());
+		assertEquals(correctDate,((DateStringObject) dataObjectList.get(0)).getDate());
 	}
 	
 	@Test 
@@ -61,7 +61,7 @@ public class NewsStoriesDatabaseTest {
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		String correctHeadline = "A 117-year-old woman in Mexico City finally received her birth certificate, and died a few hours later. Trinidad Alvarez Lira had waited years for proof that she had been born in 1898."; 
-		assertEquals(correctHeadline,((NSObject) dataObjectList.get(0)).getHeadline());
+		assertEquals(correctHeadline,((DateStringObject) dataObjectList.get(0)).getString());
 	}
 	
 	@Test 
@@ -70,7 +70,7 @@ public class NewsStoriesDatabaseTest {
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
-		assertEquals(correctDate,((NSObject) dataObjectList.get(24)).getDate());
+		assertEquals(correctDate,((DateStringObject) dataObjectList.get(24)).getDate());
 	}
 	
 	@Test 
@@ -79,7 +79,7 @@ public class NewsStoriesDatabaseTest {
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		String correctHeadline = "Ozone layer hole seems to be healing - US &amp; UK team shows it's shrunk &amp; may slowly recover. \"If you had to have an ozone hole anywhere in the world, it'd be Antarctica because its not teeming with life. It showed us if we didnt back off with these chemicals, wed have a crisis.\"";
-		assertEquals(correctHeadline,((NSObject) dataObjectList.get(24)).getHeadline());
+		assertEquals(correctHeadline,((DateStringObject) dataObjectList.get(24)).getString());
 	}
 	
 	@After
