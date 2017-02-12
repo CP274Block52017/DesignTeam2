@@ -1,5 +1,6 @@
 package preprocessing;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class PreprocessingController {
@@ -9,7 +10,7 @@ public class PreprocessingController {
 		this.storyProcessingStrategy = storyProcessingStrategy;
 	}
 	
-	public List<DayStrings> processStories(List<DayStrings> dayStoryList){
+	public List<DayStrings> processStories(List<DayStrings> dayStoryList) throws FileNotFoundException{
 		return storyProcessingStrategy.processStories(dayStoryList);
 	}
 }
