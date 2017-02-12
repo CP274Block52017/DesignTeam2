@@ -59,7 +59,7 @@ public class NewsStoriesDatabaseTest {
 		NSController.writeListtoDB(NSList);
 		List<DataObject> returnList = NSController.retrieveDataFromDB();
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
-		assertEquals(correctDate,((NSObject) returnList.get(returnList.size() -1)).getDate());
+		assertEquals(correctDate,((NSObject) returnList.get(24)).getDate());
 	}
 	
 	@Test 
@@ -67,13 +67,12 @@ public class NewsStoriesDatabaseTest {
 		NSController.writeListtoDB(NSList);
 		List<DataObject> returnList = NSController.retrieveDataFromDB();
 		String correctHeadline = "Ozone layer hole seems to be healing - US &amp; UK team shows it's shrunk &amp; may slowly recover. \"If you had to have an ozone hole anywhere in the world, it'd be Antarctica because its not teeming with life. It showed us if we didnt back off with these chemicals, wed have a crisis.\"";
-		assertEquals(correctHeadline,((NSObject) returnList.get(returnList.size() -1)).getHeadline());
+		assertEquals(correctHeadline,((NSObject) returnList.get(24)).getHeadline());
 	}
 	
 	@After
 	public void cleanUp() throws SQLException{
 		//comment out deleteAll() if you want to check data in omnipredictor tables
 		NSController.deleteAll();
-		
 	}
 }

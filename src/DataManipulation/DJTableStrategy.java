@@ -18,7 +18,7 @@ public class DJTableStrategy implements TableStrategy{
 	public void writeToTable(List<String[]> file, Connection databaseConnection) throws SQLException, ParseException {
 		String query = "insert into DJOpening (date, opening) values (?,?)";
 		PreparedStatement preparedStatement = databaseConnection.prepareStatement(query);
-		for(int i=1;i<26;i++){
+		for(int i=1;i<76;i++){
 			java.sql.Date sqlDate = java.sql.Date.valueOf(file.get(i)[0]);
 			BigDecimal sqlDecimal = new BigDecimal(file.get(i)[1]);
 			preparedStatement.setDate(1, sqlDate);

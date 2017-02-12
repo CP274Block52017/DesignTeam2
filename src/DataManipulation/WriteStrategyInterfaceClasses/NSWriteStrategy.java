@@ -1,4 +1,4 @@
-package DataManipulation;
+package DataManipulation.WriteStrategyInterfaceClasses;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

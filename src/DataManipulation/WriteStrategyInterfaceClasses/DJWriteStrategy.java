@@ -1,4 +1,4 @@
-package DataManipulation;
+package DataManipulation.WriteStrategyInterfaceClasses;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

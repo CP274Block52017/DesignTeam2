@@ -61,7 +61,7 @@ public class DJDatabaseTest {
 		DJController.writeListtoDB(DJList);
 		List<DataObject> returnList = DJController.retrieveDataFromDB();
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-05-27");
-		assertEquals(correctDate,((DJObject) returnList.get(returnList.size() -1)).getDate());
+		assertEquals(correctDate,((DJObject) returnList.get(24)).getDate());
 	}
 	
 	@Test 
@@ -69,7 +69,7 @@ public class DJDatabaseTest {
 		DJController.writeListtoDB(DJList);
 		List<DataObject> returnList = DJController.retrieveDataFromDB();
 		BigDecimal correctOpening = BigDecimal.valueOf(17826.84961); 
-		assertEquals(correctOpening,((DJObject) returnList.get(returnList.size() -1)).getOpeningValue());
+		assertEquals(correctOpening,((DJObject) returnList.get(24)).getOpeningValue());
 	}
 	
 	@After
