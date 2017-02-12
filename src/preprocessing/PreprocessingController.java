@@ -1,17 +1,12 @@
 package preprocessing;
-
 import java.io.FileNotFoundException;
 import java.util.List;
 
 public class PreprocessingController {
-	private StoryProcessingStrategy storyProcessingStrategy;
 	
-	public PreprocessingController(StoryProcessingStrategy storyProcessingStrategy){
-		this.storyProcessingStrategy = storyProcessingStrategy;
-	}
-	
-	public List<DayStrings> processStories(List<DayStrings> dayStoryList) throws FileNotFoundException{
-		return storyProcessingStrategy.processStories(dayStoryList);
+	public List<DayStrings> removePrepositions(List<DayStrings> dayStoryList) throws FileNotFoundException{
+		PrepositionRemover prepRemover = new PrepositionRemover();
+		return prepRemover.removePrepositions(dayStoryList);
 	}
 	
 	public List<DayWordCount> getWordCounts(List<DayStrings> dayStoryList){
