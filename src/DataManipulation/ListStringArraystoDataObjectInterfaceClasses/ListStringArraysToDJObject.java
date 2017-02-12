@@ -14,7 +14,6 @@ public class ListStringArraysToDJObject implements ListStringArraysToDataObject 
 		for(int i=0;i< numOfDJtoUpload;i++){
 			java.sql.Date sqlDate = java.sql.Date.valueOf(file.get(i)[0]);
 			BigDecimal sqlDecimal = new BigDecimal(file.get(i)[1]);
-			//System.out.println("" + sqlDecimal);
 			DJObject rowObject = new DJObject(sqlDate,sqlDecimal);
 			returnSet.add(rowObject);
 		}

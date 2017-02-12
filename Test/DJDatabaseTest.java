@@ -39,14 +39,7 @@ public class DJDatabaseTest {
 		String username = "root";
 		String password = "root";
 		CSVFileReader reader = new CSVFileReader();
-		/*
-		 * List<String[]> stringList = reader.readFile("Data/RedditNews.csv");
-		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
-		NSList = conversion.stringtoDataObject(stringList);
-		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
-		NSReturnSetStrategy NSReturnStrategy = new NSReturnSetStrategy();
-	}
-		 */
+		
 		List<String[]> stringList = reader.readFile("Data/DJIA_table.csv");
 		ListStringArraysToDJObject conversion = new ListStringArraysToDJObject();
 		DJList = conversion.stringtoDataObject(stringList);
@@ -76,25 +69,25 @@ public class DJDatabaseTest {
 	@Test 
 	public void readWriteAllValuesCheckLastDate() throws SQLException, ParseException {
 		DJController.writeListtoDB(DJList);
-		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening", "2016-05-27", "2016-07-01");
+		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening", "2016-05-27", "2016-05-27");
 		List<DataObject> dataObjectList = DJController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-05-27");
-		assertEquals(correctDate,((DJObject) dataObjectList.get(24)).getDate());
+		assertEquals(correctDate,((DJObject) dataObjectList.get(0)).getDate());
 	}
 	
 	@Test 
 	public void readWriteAllValuesCheckLastOpeningValue() throws SQLException, ParseException {
 		DJController.writeListtoDB(DJList);
-		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening","2016-05-27" , "2016-07-01");
+		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening","2016-05-27" , "2016-05-27");
 		List<DataObject> dataObjectList = DJController.returnSetStrategy(returnList);
 		BigDecimal correctOpening = BigDecimal.valueOf(17826.84961); 
-		assertEquals(correctOpening,((DJObject) dataObjectList.get(24)).getOpeningValue());
+		assertEquals(correctOpening,((DJObject) dataObjectList.get(0)).getOpeningValue());
 	}
 	
 	@After
 	public void cleanUp() throws SQLException{
 		//comment out deleteAll() if you want to check data in omnipredictor tables
-		//DJController.deleteAll();
+		DJController.deleteAll();
 		
 	}
 }
