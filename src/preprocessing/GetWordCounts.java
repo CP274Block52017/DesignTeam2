@@ -2,6 +2,7 @@ package preprocessing;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class GetWordCounts {
@@ -18,9 +19,11 @@ public class GetWordCounts {
 	
 	public DayWordCount getDayWordCounts(DayStrings dayStories){
 		String[] dayWords = dayStories.getStringArray();
-		WordCount[] wordCounts = new WordCount[dayWords.length];
-		for(int i = 0; i < dayWords.length; i++){
-			String word = dayWords[i];
+		List<String> uniqueWordList = getUniqueWordList(dayWords);
+		System.out.println(Arrays.toString(uniqueWordList.toArray()));
+		WordCount[] wordCounts = new WordCount[uniqueWordList.size()];
+		for(int i = 0; i < uniqueWordList.size(); i++){
+			String word = uniqueWordList.get(i);
 			WordCount wordCount = getWordCount(word, dayWords);
 			wordCounts[i] = wordCount;
 		}
@@ -32,12 +35,23 @@ public class GetWordCounts {
 		int count = 0;
 		for(int i = 0; i < dayWords.length; i++){
 			String currentWord = dayWords[i];
-			if (currentWord == word) {
+			if (currentWord.equals(word)) {
 				count++;
 			}
 		}
 		WordCount wordCount = new WordCount(word, count);
 		return wordCount;
+	}
+	
+	public List<String> getUniqueWordList(String[] nonUniqueWordList){
+		List<String> uniqueWordList = new ArrayList<String>();
+		for(int i = 0; i < nonUniqueWordList.length; i++){
+			String currentWord = nonUniqueWordList[i];
+			if (!uniqueWordList.contains(currentWord)) {
+				uniqueWordList.add(currentWord);
+			}
+		}
+		return uniqueWordList;
 	}
 	
 }

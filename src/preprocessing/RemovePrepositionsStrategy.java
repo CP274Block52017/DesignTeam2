@@ -43,7 +43,7 @@ public class RemovePrepositionsStrategy implements StoryProcessingStrategy{
 			//System.out.println(Arrays.toString(tags.toArray()));
 			String[] processedList = new String[tokens.size()];
 			for(int i=0;i<tokens.size();i++){
-				processedList[i] = tokens.get(i);
+				processedList[i] = tokens.get(i).toLowerCase();
 			}
 			java.sql.Date date = dayStoryList.get(a).getDate();
 			DayStrings dayStrings = new DayStrings(date,processedList);
