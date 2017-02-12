@@ -13,4 +13,9 @@ public class PreprocessingController {
 	public List<DayStrings> processStories(List<DayStrings> dayStoryList) throws FileNotFoundException{
 		return storyProcessingStrategy.processStories(dayStoryList);
 	}
+	
+	public List<DayWordCount> getWordCounts(List<DayStrings> dayStoryList){
+		GetWordCounts wordCounter = new GetWordCounts();
+		return wordCounter.getWordCounts(dayStoryList);
+	}
 }

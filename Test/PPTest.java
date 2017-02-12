@@ -12,6 +12,7 @@ import preprocessing.*;
 public class PPTest {
 	private List<DayStrings> dayStoriesList = new ArrayList<DayStrings>();
 	private PreprocessingController preprocessingController = null;
+
 	@Before
 	public void setup(){
 		String dateString = "2016-07-01";
@@ -24,6 +25,13 @@ public class PPTest {
 		preprocessingController = new PreprocessingController(removePrepositionsStrategy);
 		DayStrings dayStories = new DayStrings(date,storyList);
 		dayStoriesList.add(dayStories);
+		
+		String dateString2 = "2016-06-30";
+		java.sql.Date date2 = java.sql.Date.valueOf(dateString2);
+		String[] storyList2 = new String[1];
+		storyList2[0] = "Jamaica proposes marijuana dispensers for tourists at airports following legalisation: The kiosks and desks would give people a license to purchase up to 2 ounces of the drug to use during their stay";
+		DayStrings dayStories2 = new DayStrings(date2,storyList2);
+		dayStoriesList.add(dayStories2);
 	}
 	
 	@Test
@@ -48,5 +56,17 @@ public class PPTest {
 		//DayStrings firstDayRemoved = removedPrepsList.get(0);
 		
 		assertTrue(true);
+	}
+	
+	@Test
+	public void getWordCountsForListOfDayStrings() {
+		List<DayWordCount> dayWordCounts = preprocessingController.getWordCounts(dayStoriesList);
+		for(int i = 0; i < dayWordCounts.size(); i++){
+			WordCount[] wordCounts = dayWordCounts.get(i).getWordCountArray();
+			for(int j = 0; j < wordCounts.length; j++){
+				System.out.println(wordCounts[j].getWord() + " " + wordCounts[j].getWordCount());
+			}
+		}
+		assertTrue(dayStoriesList.size() == 2);
 	}
 }
