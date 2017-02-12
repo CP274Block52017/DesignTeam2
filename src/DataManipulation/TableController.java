@@ -1,26 +1,40 @@
 package DataManipulation;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
-import java.util.List; 
+import java.util.List;
+
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
+import DataManipulation.ReturnSetStrategyInterfaceClasses.ReturnSetStrategy;
+import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy; 
 
 public class TableController {
-	private TableStrategy tableInteractionStrategy;
+	private WriteStrategy writeStrategy;
 	private Connection databaseConnection;
+	private ReturnSetStrategy returnSetStrategy;
 	
-	public TableController(String databaseAddress, TableStrategy databaseWriteStrategy) throws SQLException {
-		this.tableInteractionStrategy = databaseWriteStrategy;
+	public TableController(WriteStrategy writeStrategy, ReturnSetStrategy returnSetStrategy, String databaseAddress) throws SQLException {
+		this.writeStrategy = writeStrategy;
+		this.returnSetStrategy = returnSetStrategy;
 		this.databaseConnection = DriverManager.getConnection(databaseAddress);
 	}
 	
-	public void writeListtoDB(List<String[]> list) throws SQLException, ParseException{
-		tableInteractionStrategy.writeToTable(list,databaseConnection);
+	public void writeListtoDB(List<DataObject> list) throws SQLException, ParseException{
+		writeStrategy.writeToTable(list,databaseConnection);
 	}
 	
-	public List<DataObject> retrieveDataFromDB() throws SQLException{
-		return tableInteractionStrategy.retrieveData(databaseConnection);
+	public List<DataObject> returnSetStrategy(ResultSet resultSet) throws SQLException {
+		return returnSetStrategy.returnSetToDataObject(resultSet);
+	}
+	
+	public ResultSet retrieveDataFromDB(String tableName, String startDate, String endDate)  throws SQLException{
+		Statement databaseStatement = databaseConnection.createStatement();
+		String selectCommand = "SELECT * FROM "+ tableName +" WHERE date >= \""+ startDate +"\" AND date <= \""+ endDate +"\";";
+		ResultSet resultSet = databaseStatement.executeQuery(selectCommand);
+		return resultSet;
 	}
 	
 	public void deleteAll() throws SQLException{
