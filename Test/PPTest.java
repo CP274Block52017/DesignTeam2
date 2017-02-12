@@ -10,7 +10,7 @@ import preprocessing.*;
 
 public class PPTest {
 	private List<DayStrings> dayStoriesList = new ArrayList<DayStrings>();
-	//private PreprocessingController preprocessingController = new PreprocessingController();
+//	private PreprocessingController preprocessingController = new PreprocessingController(GetWordCounts);
 	@Before
 	public void setup(){
 		String dateString = "2016-07-01";
@@ -22,6 +22,13 @@ public class PPTest {
 		//RemovePrepositionsFromStory
 		DayStrings dayStories = new DayStrings(date,storyList);
 		dayStoriesList.add(dayStories);
+		
+		String dateString2 = "2016-06-30";
+		java.sql.Date date2 = java.sql.Date.valueOf(dateString2);
+		String[] storyList2 = new String[1];
+		storyList2[0] = "Jamaica proposes marijuana dispensers for tourists at airports following legalisation: The kiosks and desks would give people a license to purchase up to 2 ounces of the drug to use during their stay";
+		DayStrings dayStories2 = new DayStrings(date2,storyList2);
+		dayStoriesList.add(dayStories2);
 	}
 	
 	@Test
@@ -46,5 +53,11 @@ public class PPTest {
 		//DayStrings firstDayRemoved = removedPrepsList.get(0);
 		
 		assertTrue(true);
+	}
+	
+	@Test
+	public void getWordCountsForListOfDayStrings() {
+//		List<DayWordCount> wordCounts = preprocessingController.getWordCounts(dayStoriesList);
+		assertTrue(dayStoriesList.size() == 2);
 	}
 }

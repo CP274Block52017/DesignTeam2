@@ -12,4 +12,9 @@ public class PreprocessingController {
 	public List<DayStrings> processStories(List<DayStrings> dayStoryList){
 		return storyProcessingStrategy.processStories(dayStoryList);
 	}
+	
+	public List<DayWordCount> getWordCounts(List<DayStrings> dayStoryList){
+		GetWordCounts getWordCounts = new GetWordCounts();
+		return getWordCounts.getWordCounts(dayStoryList);
+	}
 }
