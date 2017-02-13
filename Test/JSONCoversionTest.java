@@ -32,7 +32,7 @@ public class JSONCoversionTest {
 		}
 		
 		List<DataObject> convertedList = new ArrayList<DataObject>();
-		convertedList = conversion.getJSON(file);
+		//convertedList = conversion.getJSON(file);
 		for(int i = 0; i < convertedList.size(); i++){
 			date = convertedList.get(i).getDate();
 			String wordListday = ((DateStringObject) convertedList.get(i)).getString();
