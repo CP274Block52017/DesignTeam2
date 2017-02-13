@@ -1,10 +1,10 @@
 package preprocessing;
 
-public class DayWordCount {
+public class DayWordCounts {
 	private java.sql.Date date;
 	private WordCount[] wordCountArray;
 	
-	public DayWordCount(java.sql.Date date, WordCount[] wordCountArray){
+	public DayWordCounts(java.sql.Date date, WordCount[] wordCountArray){
 		this.date = date;
 		this.wordCountArray = wordCountArray;
 	}

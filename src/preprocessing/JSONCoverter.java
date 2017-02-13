@@ -8,7 +8,7 @@ import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 
 public class JSONCoverter {
-	public List<DataObject> getJSON (List<DayWordCount> file){
+	/*public List<DataObject> getJSON (List<DayWordCounts> file){
 		
 		  
  		JSONObject json1 = new JSONObject();
@@ -29,8 +29,8 @@ public class JSONCoverter {
 		String message = json1.toString();
 		System.out.println(message);
 		
-		// message
-		// {"course":[{"id":3,"information":"test","name":"course1"}],"name":"student"}*/
+		 message
+		{"course":[{"id":3,"information":"test","name":"course1"}],"name":"student"}
 		List<DataObject> returnSet = new ArrayList<DataObject>();
 		JSONObject json = new JSONObject();
 		for(int i = 0; i < file.size(); i ++){
@@ -50,5 +50,5 @@ public class JSONCoverter {
 			returnSet.add(rowObject);
 		}
 		return returnSet;
-	}
+	}*/
 }

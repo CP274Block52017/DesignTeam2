@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
-import preprocessing.DayWordCount;
+import preprocessing.DayWordCounts;
 import preprocessing.JSONCoverter;
 import preprocessing.WordCount;
 
@@ -17,7 +17,7 @@ public class JSONCoversionTest {
 	@Test
 	public void test() {
 		JSONCoverter conversion = new JSONCoverter();
-		List<DayWordCount> file = new ArrayList<DayWordCount>();
+		List<DayWordCounts> file = new ArrayList<DayWordCounts>();
 		java.sql.Date date = java.sql.Date.valueOf("2016-01-07");
 
 		for(int t = 0; t < 3; t++){
@@ -27,7 +27,7 @@ public class JSONCoversionTest {
 				WordCount wordCount = new WordCount("tester" + i+t, i);
 				wordcountList[i] = wordCount; 
 			}
-			DayWordCount dateWordCount = new DayWordCount(date, wordcountList);
+			DayWordCounts dateWordCount = new DayWordCounts(date, wordcountList);
 			file.add(dateWordCount);
 		}
 		
