@@ -5,12 +5,13 @@ import org.neuroph.util.data.norm.MaxNormalizer;
 import org.neuroph.util.data.norm.Normalizer;
 
 //helper object as of now. For testing on CSV files rather than running whole program.
+//Not for production implementation
 public class dataFormatter {
 
 	//Read CSV file containing data into a Neuroph DataSet, randomize order, and format
 	public DataSet getNormalizedSet(String trainingSetFileName, int inputsCount, int outputsCount ) {
 		DataSet dataSet = DataSet.createFromFile(trainingSetFileName, inputsCount, outputsCount, ",");
-		dataSet.shuffle();
+		dataSet.shuffle(); //Shuffles data to ensure that the test and training data vary. 
 		Normalizer normalizer = new MaxNormalizer();
 		normalizer.normalize(dataSet);
 		return dataSet;

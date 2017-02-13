@@ -52,7 +52,8 @@ public class ANNTester {
 	}
 
 	@Test
-	//comment on problem of intertwined tests
+	//Had to use multiple asserts in one statement. Takes way to long in instantiate, train, and test a neural network each time. I'm open to solutions!!
+	//Makes sure all metrics are in correct range.
 	public void metricsInRange() {
 		dataFormatter d = new dataFormatter();
     	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
@@ -77,6 +78,8 @@ public class ANNTester {
 		assertTrue(getPercentOverWorking);
 		assertTrue(getPercentUnderWorking);
 	}
+	//Had to use multiple asserts in one statement. Takes way to long in instantiate, train, and test a neural network each time. I'm open to solutions!!
+	//Makes sure all results are reasonably accurate and not off by 1000 or 5000 on average.
 	@Test
 	public void accurateResults() {
 		dataFormatter d = new dataFormatter();
@@ -90,7 +93,7 @@ public class ANNTester {
 		
 		tester.setMetrics(trainingAndTestSet[1]);
 		boolean standdevUnder5000 = tester.getStandardDeviation() < 5000;
-		boolean standdevUnder1000 = tester.getStandardDeviation() < 5000;
+		boolean standdevUnder1000 = tester.getStandardDeviation() < 1000;
 		assertTrue(standdevUnder5000);
 		assertTrue(standdevUnder1000);
 		tester.printResults();

@@ -9,12 +9,7 @@
 	<classpathentry kind="lib" path="Jars/opennlp-tools-1.7.2.jar"/>
 	<classpathentry kind="lib" path="Jars/slf4j-api-1.7.22.jar"/>
 	<classpathentry kind="lib" path="Jars/slf4j-nop-1.7.22.jar"/>
-<<<<<<< HEAD
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-=======
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
->>>>>>> refs/heads/callumBranch
 	<classpathentry kind="output" path="bin"/>
 </classpath>

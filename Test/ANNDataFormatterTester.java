@@ -11,6 +11,7 @@ import junit.framework.Assert;
 
 public class ANNDataFormatterTester {
 
+	//Note: data set objects have row objects with an input and output section
 	@Test
 	public void toDataSetInstantiationWorks() {
 		ArrayList<int[]> inputList = new ArrayList<int[]>();
@@ -20,6 +21,7 @@ public class ANNDataFormatterTester {
 		//Check to make sure it didnt crash!!!!!!
 		assertTrue(true);
 	}
+	//makes sure that after the object is created, the input and outputs are correct.
 	@Test
 	public void toDataSetInputsandOutputsCorrect() {
 		ArrayList<int[]> inputList = new ArrayList<int[]>();
@@ -30,6 +32,7 @@ public class ANNDataFormatterTester {
 		boolean correctOutput = dataSet.getOutputSize() == 16;
 		assertTrue(correctInput & correctOutput );
 	}
+	//Makes sure that the Binary output array is correct
 	@Test
 	public void toCorrectBinary() {
 		ArrayList<int[]> inputList = new ArrayList<int[]>();
@@ -40,6 +43,7 @@ public class ANNDataFormatterTester {
 		System.out.println(dataSet.getRowAt(0).getDesiredOutput()[15]);
 		assertTrue(correctOutput );
 	}
+	//Makes sure that the Binary output array is correct for an input that isn't one
 	@Test
 	public void toCorrectBinaryForNotOne() {
 		ArrayList<int[]> inputList = new ArrayList<int[]>();
@@ -57,6 +61,7 @@ public class ANNDataFormatterTester {
 		assertTrue(Arrays.equals(dataSet.get(0).getDesiredOutput(), correctArray));
 	
 	}
+	//Makes sure the input array is correct
 	@Test
 	public void correctInput() {
 		ArrayList<int[]> inputList = new ArrayList<int[]>();
