@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.neuroph.core.data.DataSet;
 
 import NeuralNetwork.dataFormatter;
+import NeuralNetwork.ANNMetricRetriever;
 import NeuralNetwork.BackPropagatingNN;
 
 public class ANNTester {
@@ -22,7 +23,7 @@ public class ANNTester {
 	@Test
 	public void dataParsingSeperateSizes() {
 		dataFormatter d = new dataFormatter();
-    	DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 9, 16);
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
 	}
@@ -30,7 +31,7 @@ public class ANNTester {
 	@Test
 	public void configuratonDoesNotCrash() {
 		dataFormatter d = new dataFormatter();
-    	DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
 		BackPropagatingNN ANN = new BackPropagatingNN();
@@ -41,7 +42,7 @@ public class ANNTester {
 	@Test
 	public void trainingCompletes() {
 		dataFormatter d = new dataFormatter();
-    	DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
 		BackPropagatingNN ANN = new BackPropagatingNN();
@@ -53,12 +54,15 @@ public class ANNTester {
 	@Test
 	public void predictionWithinOneThousand() {
 		dataFormatter d = new dataFormatter();
-    	DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
 		BackPropagatingNN ANN = new BackPropagatingNN();
 		ANN.configure(trainingAndTestSet[0].getInputSize(), trainingAndTestSet[0].getOutputSize(), .5, .001, 5050);
 		ANN.train(trainingAndTestSet[0]);
+		ANNMetricRetriever tester = new ANNMetricRetriever(ANN);
+		tester.setMetrics(trainingAndTestSet[1]);
+		tester.printResults();
 		assertTrue(true);
 	}
 
