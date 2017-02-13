@@ -7,7 +7,6 @@ import DataManipulation.DataObjectInterfaceClasses.DJObject;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DJReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DJWriteStrategy;
-import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -17,11 +16,13 @@ import java.util.ArrayList;
 
 
 public class WordCountMaker {
+	//Get unique word list for all days and check counts of each unique word for each day
 	public List<int[]> getWordCounts(List<DayStrings> dayWordList) throws SQLException{
 		List<String> uniqueWordsAllDays = getUniqueWordList(dayWordList);
 		return getWordCountList(dayWordList, uniqueWordsAllDays);
 	}
 	
+	//Get counts of each unique word for each day
 	private List<int[]> getWordCountList(List<DayStrings> dayWordList, List<String> uniqueWordsAllDays) throws SQLException{
 		List<int[]> returnList = new ArrayList<int[]>();
 		for(DayStrings i : dayWordList){
@@ -31,6 +32,7 @@ public class WordCountMaker {
 		return returnList;
 	}
 	
+	//Get an int array formatted correctly for the neural network for each day
 	private int[] getNNSingleArray(DayStrings i, List<String> uniqueWordsAllDays) throws SQLException{
 		int headerSize = 4;
 		int[] NNSingleArray = getHeaderInfo(i, uniqueWordsAllDays.size(), headerSize);
@@ -41,6 +43,7 @@ public class WordCountMaker {
 		return NNSingleArray;
 	}
 	
+	//Add header info to int array for neural network
 	private int[] getHeaderInfo(DayStrings i, int uniqueWordsSize, int headerSize) throws SQLException{
 		int[] NNSingleArray = new int[uniqueWordsSize+headerSize];
 		NNSingleArray[0] = getDOW(i.getDate().toString());
@@ -52,6 +55,7 @@ public class WordCountMaker {
 		return NNSingleArray;
 	}
 	
+	//Get DOW value from a date
 	private int getDOW(String date) throws SQLException{
 		String localhostID = "8889";
 		String username = "root";
@@ -65,6 +69,7 @@ public class WordCountMaker {
 		return dowValue.intValue();
 	}
 	
+	//Get instances of a word in a wordlist
 	private int getCount(String[] wordList, String word){
 		int count = 0;
 		for(String i:wordList){
@@ -75,6 +80,7 @@ public class WordCountMaker {
 		return count;
 	}
 	
+	//Create unique word list from a nonunique word list
 	private List<String> getUniqueWordList(List<DayStrings> dayWordList){
 		List<String> uniqueWordList = new ArrayList<String>();
 		for(DayStrings i : dayWordList){
