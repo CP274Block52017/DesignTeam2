@@ -15,7 +15,6 @@ public class ANNMetricRetriever {
 	public ANNMetricRetriever(ANN neuralNet) {
 		this.neuralNet = neuralNet;
 	}
-	//TODO: Change Instantiations
 	public int setMetrics(DataSet testSet) {
 		total = testSet.size();
         for (DataSetRow testSetRow : testSet.getRows()) {
@@ -33,24 +32,24 @@ public class ANNMetricRetriever {
 	public int getStandardDeviation() {
 		return this.standardDeviation;
 	}
-	public int getPercentExactEstimates() {
-		return (this.exactEstimates/this.total);
+	public float getPercentExactEstimates() {
+		return (100*(float)this.exactEstimates/this.total);
 	}
-	public int getPercentOverestimated() {
-		return (this.overestimates/this.total);
+	public float getPercentOverestimated() {
+		return (100*(float)this.overestimates/this.total);
 	}
-	public int getPercentUnderestimated() {
-		return (this.underestimates/this.total);
+	public float getPercentUnderestimated() {
+		return (100*(float)this.underestimates/this.total);
 	}
 	public void printResults() {
 		System.out.println("*************ANN METRICS*************");
-		System.out.println("Total Cases " + this.total);
-		System.out.println("Exact Estimates " + this.exactEstimates);
-		System.out.println("Percent Exact Estimates " + getPercentExactEstimates() + "%");
-		System.out.println("Overestimates " + this.overestimates);
-		System.out.println("Percent Overestimated " + getPercentOverestimated() + "%");
-		System.out.println("Underestimates " + this.underestimates);
-		System.out.println("Percent Underestimated " + getPercentUnderestimated() + "%");
+		System.out.println("Total Cases: " + this.total);
+		System.out.println("Exact Estimates: " + this.exactEstimates);
+		System.out.println("Percent Exact Estimates: " + getPercentExactEstimates() + "%");
+		System.out.println("Overestimates: " + this.overestimates);
+		System.out.println("Percent Overestimated: " + getPercentOverestimated() + "%");
+		System.out.println("Underestimates: " + this.underestimates);
+		System.out.println("Percent Underestimated: " + getPercentUnderestimated() + "%");
 		System.out.println("Standard Deviation: " + this.standardDeviation);
 		System.out.println("*************************************");
 	}

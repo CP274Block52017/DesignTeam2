@@ -52,7 +52,7 @@ public class ANNTester {
 	}
 	//Makes sure BackPropagatingNN completes training.
 	@Test
-	public void predictionWithinOneThousand() {
+	public void accurateResults() {
 		dataFormatter d = new dataFormatter();
     	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
