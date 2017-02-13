@@ -8,7 +8,6 @@ import java.util.List;
 import com.opencsv.CSVReader;
 
 public class CSVFileReader {
-	
 
 	public List<String[]> readFile(String file){
 		FileReader fileReader; 
@@ -22,7 +21,7 @@ public class CSVFileReader {
 		}
 		catch(FileNotFoundException e){}
 		catch(IOException e ){}
-		dataList.remove(0); //fix for loops
+		dataList.remove(0); 
 		return dataList;
 	}
 }

@@ -7,6 +7,9 @@ import org.json.*;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 
+// convert one date's headlines unqiue words and counters into a 
+//JSON (String) object)
+
 public class JSONCoverter {
 	public List<DataObject> getJSON (List<DayWordCount> file){
 		
