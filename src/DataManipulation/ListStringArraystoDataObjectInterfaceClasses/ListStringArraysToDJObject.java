@@ -20,5 +20,4 @@ public class ListStringArraysToDJObject implements ListStringArraysToDataObject 
 		}
 		return returnSet;
 	}
-
 }
