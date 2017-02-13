@@ -4,6 +4,7 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.util.data.norm.MaxNormalizer;
 import org.neuroph.util.data.norm.Normalizer;
 
+//helper object as of now. For testing on CSV files rather than running whole program.
 public class dataFormatter {
 
 	//Read CSV file containing data into a Neuroph DataSet, randomize order, and format
