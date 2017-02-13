@@ -1,4 +1,4 @@
-package preprocessing;
+package DataManipulation.WriteStrategyInterfaceClasses;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,6 @@ import java.util.List;
 
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
-import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy;
 
 public class WordCountWriteStrategy implements WriteStrategy {
 

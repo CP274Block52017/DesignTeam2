@@ -37,8 +37,6 @@ public class PPTest {
 		storyList3[0] = "British Man Who Must Give Police 24 Hours' Notice of Sex Threatens Hunger Strike: The man is the subject of a sexual risk order despite having never been convicted of a crime.";
 		DayStrings dayStories3 = new DayStrings(date,storyList3);
 		singleStoryDay.add(dayStories3);
-		
-		
 	}
 	
 	@Test
@@ -116,6 +114,5 @@ public class PPTest {
 				System.out.println("day: "+i.getDate()+" "+j.getWord() + " Count: " + j.getWordCount());
 			}
 		}
-		
 	}
 }
