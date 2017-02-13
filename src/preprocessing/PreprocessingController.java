@@ -9,7 +9,7 @@ public class PreprocessingController {
 		return prepRemover.removePrepositions(dayStoryList);
 	}
 	
-	public List<DayWordCount> getWordCounts(List<DayStrings> dayStoryList){
+	public List<int[]> getWordCounts(List<DayStrings> dayStoryList){
 		GetWordCounts wordCounter = new GetWordCounts();
 		return wordCounter.getWordCounts(dayStoryList);
 	}

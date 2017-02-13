@@ -2,53 +2,51 @@ package preprocessing;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class GetWordCounts {
 	
-	public List<DayWordCount> getWordCounts(List<DayStrings> dayStoryList){
-		List<DayWordCount> dayWordCounts = new ArrayList<DayWordCount>();
-		for(int i = 0; i < dayStoryList.size(); i++) {
-			DayStrings dayStories = dayStoryList.get(i);
-			DayWordCount dayWordCount = getDayWordCounts(dayStories);
-			dayWordCounts.add(dayWordCount);
-		}
-		return dayWordCounts;
+	public List<int[]> getWordCounts(List<DayStrings> dayWordList){
+		List<String> uniqueWordsAllDays = getUniqueWordList(dayWordList);
+		return getWordCountList(dayWordList, uniqueWordsAllDays);
 	}
 	
-	public DayWordCount getDayWordCounts(DayStrings dayStories){
-		String[] dayWords = dayStories.getStringArray();
-		List<String> uniqueWordList = getUniqueWordList(dayWords);
-		System.out.println(Arrays.toString(uniqueWordList.toArray()));
-		WordCount[] wordCounts = new WordCount[uniqueWordList.size()];
-		for(int i = 0; i < uniqueWordList.size(); i++){
-			String word = uniqueWordList.get(i);
-			WordCount wordCount = getWordCount(word, dayWords);
-			wordCounts[i] = wordCount;
+	private List<int[]> getWordCountList(List<DayStrings> dayWordList, List<String> uniqueWordsAllDays){
+		List<int[]> returnList = new ArrayList<int[]>();
+		for(DayStrings i : dayWordList){
+			int[] wordCounts = getWordCounts(i,uniqueWordsAllDays);
+			returnList.add(wordCounts);
 		}
-		DayWordCount dayWordCount = new DayWordCount(dayStories.getDate(), wordCounts);
-		return dayWordCount;
+		return returnList;
 	}
 	
-	public WordCount getWordCount(String word, String[] dayWords){
+	private int[] getWordCounts(DayStrings i, List<String> uniqueWordsAllDays){
+		int[] wordCounts = new int[uniqueWordsAllDays.size()];
+		String[] wordList = i.getStringArray();
+		for(int j = 0;j<uniqueWordsAllDays.size();j++){
+			wordCounts[j] = getCount(wordList,uniqueWordsAllDays.get(j));
+		}
+		return wordCounts;
+	}
+	
+	private int getCount(String[] wordList, String word){
 		int count = 0;
-		for(int i = 0; i < dayWords.length; i++){
-			String currentWord = dayWords[i];
-			if (currentWord.equals(word)) {
+		for(String i:wordList){
+			if(i.equals(word)){
 				count++;
 			}
 		}
-		WordCount wordCount = new WordCount(word, count);
-		return wordCount;
+		return count;
 	}
 	
-	public List<String> getUniqueWordList(String[] nonUniqueWordList){
+	private List<String> getUniqueWordList(List<DayStrings> dayWordList){
 		List<String> uniqueWordList = new ArrayList<String>();
-		for(int i = 0; i < nonUniqueWordList.length; i++){
-			String currentWord = nonUniqueWordList[i];
-			if (!uniqueWordList.contains(currentWord)) {
-				uniqueWordList.add(currentWord);
+		for(DayStrings i : dayWordList){
+			String[] wordList = i.getStringArray();
+			for(String j : wordList){
+				if(!uniqueWordList.contains(j)){
+					uniqueWordList.add(j);
+				}
 			}
 		}
 		return uniqueWordList;

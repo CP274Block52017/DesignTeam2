@@ -101,18 +101,4 @@ public class PPTest {
 		correctArray[17] = "stay";
 		assertArrayEquals(removedPrepArray,correctArray);
 	}
-	
-	@Test
-	public void getWordCountsForListOfDayStrings() throws FileNotFoundException{
-		List<DayStrings> removedPrepsList = preprocessingController.removePrepositions(singleStoryDay);
-		List<DayWordCount> dayWordCounts = preprocessingController.getWordCounts(removedPrepsList);
-		for(DayWordCount i : dayWordCounts){
-			for(WordCount j : i.getWordCountArray()){
-				if (j.getWord().equals("man")){
-					assertEquals(j.getWordCount(), 2);
-				}
-				System.out.println("day: "+i.getDate()+" "+j.getWord() + " Count: " + j.getWordCount());
-			}
-		}
-	}
 }
