@@ -1,5 +1,6 @@
 package preprocessing;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class PreprocessingController {
@@ -9,7 +10,7 @@ public class PreprocessingController {
 		return prepRemover.removePrepositions(dayStoryList);
 	}
 	
-	public List<int[]> getWordCounts(List<DayStrings> dayStoryList){
+	public List<int[]> getNNList(List<DayStrings> dayStoryList) throws SQLException{
 		GetWordCounts wordCounter = new GetWordCounts();
 		return wordCounter.getWordCounts(dayStoryList);
 	}
