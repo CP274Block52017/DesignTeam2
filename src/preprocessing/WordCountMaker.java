@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class GetWordCounts {
+public class WordCountMaker {
 	public List<int[]> getWordCounts(List<DayStrings> dayWordList) throws SQLException{
 		List<String> uniqueWordsAllDays = getUniqueWordList(dayWordList);
 		return getWordCountList(dayWordList, uniqueWordsAllDays);

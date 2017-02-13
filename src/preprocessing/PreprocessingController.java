@@ -11,7 +11,7 @@ public class PreprocessingController {
 	}
 	
 	public List<int[]> getNNList(List<DayStrings> dayStoryList) throws SQLException{
-		GetWordCounts wordCounter = new GetWordCounts();
+		WordCountMaker wordCounter = new WordCountMaker();
 		return wordCounter.getWordCounts(dayStoryList);
 	}
 }

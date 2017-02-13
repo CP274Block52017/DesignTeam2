@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,18 +47,18 @@ public class GetWordCountsTest {
 	}
 	
 	@Test
-	public void getWordCountsReturnsCorrectSizeListOfIntArrays() throws FileNotFoundException {
+	public void getWordCountsReturnsCorrectSizeListOfIntArrays() throws FileNotFoundException, SQLException {
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(dayStoriesList);
-		List<int[]> wordCounts = preprocessingController.getWordCounts(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
 		assertEquals(wordCounts.size(), 1);
 		assertEquals(wordCounts.get(0).length, 12);
 		
 	}
 	
 	@Test
-	public void correctWordCountsMultipleDays() throws FileNotFoundException {
+	public void correctWordCountsMultipleDays() throws FileNotFoundException, SQLException {
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(multipleDaysStories);
-		List<int[]> wordCounts = preprocessingController.getWordCounts(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
 		assertEquals(wordCounts.size(), 2);
 		assertEquals(wordCounts.get(0).length, 30);
 		System.out.println(wordCounts.get(1).length);
