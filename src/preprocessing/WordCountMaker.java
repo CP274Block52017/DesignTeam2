@@ -2,27 +2,31 @@ package preprocessing;
 
 import java.util.List;
 
+import DataManipulation.CSVFileReader;
 import DataManipulation.TableController;
 import DataManipulation.DataObjectInterfaceClasses.DJObject;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
+import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToDJObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DJReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DJWriteStrategy;
-import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 
 public class WordCountMaker {
-	public List<int[]> getWordCounts(List<DayStrings> dayWordList) throws SQLException{
+	//Get unique word list for all days and check counts of each unique word for each day
+	public List<int[]> getWordCounts(List<DayStrings> dayWordList) throws SQLException, ParseException{
 		List<String> uniqueWordsAllDays = getUniqueWordList(dayWordList);
 		return getWordCountList(dayWordList, uniqueWordsAllDays);
 	}
 	
-	private List<int[]> getWordCountList(List<DayStrings> dayWordList, List<String> uniqueWordsAllDays) throws SQLException{
+	//Get counts of each unique word for each day
+	private List<int[]> getWordCountList(List<DayStrings> dayWordList, List<String> uniqueWordsAllDays) throws SQLException, ParseException{
 		List<int[]> returnList = new ArrayList<int[]>();
 		for(DayStrings i : dayWordList){
 			int[] NNSingleArray = getNNSingleArray(i,uniqueWordsAllDays);
@@ -31,7 +35,8 @@ public class WordCountMaker {
 		return returnList;
 	}
 	
-	private int[] getNNSingleArray(DayStrings i, List<String> uniqueWordsAllDays) throws SQLException{
+	//Get an int array formatted correctly for the neural network for each day
+	private int[] getNNSingleArray(DayStrings i, List<String> uniqueWordsAllDays) throws SQLException, ParseException{
 		int headerSize = 4;
 		int[] NNSingleArray = getHeaderInfo(i, uniqueWordsAllDays.size(), headerSize);
 		String[] wordList = i.getStringArray();
@@ -41,7 +46,8 @@ public class WordCountMaker {
 		return NNSingleArray;
 	}
 	
-	private int[] getHeaderInfo(DayStrings i, int uniqueWordsSize, int headerSize) throws SQLException{
+	//Add header info to int array for neural network
+	private int[] getHeaderInfo(DayStrings i, int uniqueWordsSize, int headerSize) throws SQLException, ParseException{
 		int[] NNSingleArray = new int[uniqueWordsSize+headerSize];
 		NNSingleArray[0] = getDOW(i.getDate().toString());
 		java.sql.Date date = i.getDate();
@@ -52,19 +58,28 @@ public class WordCountMaker {
 		return NNSingleArray;
 	}
 	
-	private int getDOW(String date) throws SQLException{
+	//Get DOW value from a date
+	private int getDOW(String date) throws SQLException, ParseException{
+		CSVFileReader reader = new CSVFileReader();
+		
+		List<String[]> stringList = reader.readFile("Data/DJIA_table.csv");
+		ListStringArraysToDJObject conversion = new ListStringArraysToDJObject();
+		List<DataObject> DJList = conversion.stringtoDataObject(stringList);
 		String localhostID = "8889";
 		String username = "root";
 		String password = "root";
 		DJWriteStrategy dJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy dJReturnSetStrategy = new DJReturnSetStrategy();
 		TableController dJController = new TableController(dJWriteStrategy, dJReturnSetStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		dJController.writeListtoDB(DJList);
 		ResultSet returnList = dJController.retrieveDataFromDB("DJOpening", date, date.toString());
 		List<DataObject> dataObjectList = dJController.returnSetStrategy(returnList);
 		BigDecimal dowValue = ((DJObject)dataObjectList.get(0)).getOpeningValue();
+		dJController.deleteAll();
 		return dowValue.intValue();
 	}
 	
+	//Get instances of a word in a wordlist
 	private int getCount(String[] wordList, String word){
 		int count = 0;
 		for(String i:wordList){
@@ -75,6 +90,7 @@ public class WordCountMaker {
 		return count;
 	}
 	
+	//Create unique word list from a nonunique word list
 	private List<String> getUniqueWordList(List<DayStrings> dayWordList){
 		List<String> uniqueWordList = new ArrayList<String>();
 		for(DayStrings i : dayWordList){

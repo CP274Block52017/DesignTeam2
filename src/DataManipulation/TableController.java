@@ -10,6 +10,8 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.ReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy; 
+	
+	//TableController used to run tests and for compositional design with mutiple interfaces
 
 public class TableController {
 	private WriteStrategy writeStrategy;
@@ -30,6 +32,7 @@ public class TableController {
 		return returnSetStrategy.returnSetToDataObject(resultSet);
 	}
 	
+	//TODO new retrieve database interface for future interfaces
 	public ResultSet retrieveDataFromDB(String tableName, String startDate, String endDate)  throws SQLException{
 		Statement databaseStatement = databaseConnection.createStatement();
 		String selectCommand = "SELECT * FROM "+ tableName +" WHERE date >= \""+ startDate +"\" AND date <= \""+ endDate +"\";";

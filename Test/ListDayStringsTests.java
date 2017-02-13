@@ -50,7 +50,7 @@ public class ListDayStringsTests {
 	}
 	
 	@Test
-	public void readAllHeadlinesOneDate() throws SQLException, ParseException {
+	public void readAllHeadlinesNewestDate() throws SQLException, ParseException {
 		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DayStrings> testList = dateStringsReturn.returnSetToDataObject(returnList);
