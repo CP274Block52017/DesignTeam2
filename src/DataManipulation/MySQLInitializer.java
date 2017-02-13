@@ -5,7 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/* Creates Database and three tables (DJOpening, NewsHeadlines, and WordCount) 
+ * Missing tables will not be created if the whole database is not missing.
+ * Note: WordCount table is not currently used.
+ * */
+
 public class MySQLInitializer {
+
 	Connection databaseConnection = null;
 	
 	//localhostID, username, and password are set to default MySQL. There will be a separate class to do this. 
