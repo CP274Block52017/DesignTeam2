@@ -9,7 +9,8 @@ import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
 public class ListStringArraysToDJObject implements ListStringArraysToDataObject {
 	public List<DataObject> stringtoDataObject(List<String[]> file){
-		int numOfDJtoUpload = 25;
+		int numOfDJtoUpload = 100;//if number is changed, please change number in DJWriteStrategy
+		//Uploading 8 years worth of information will take too long for JUnit tests
 		List<DataObject> returnSet = new ArrayList<DataObject>();
 		for(int i=0;i< numOfDJtoUpload;i++){
 			java.sql.Date sqlDate = java.sql.Date.valueOf(file.get(i)[0]);
@@ -19,5 +20,4 @@ public class ListStringArraysToDJObject implements ListStringArraysToDataObject 
 		}
 		return returnSet;
 	}
-
 }
