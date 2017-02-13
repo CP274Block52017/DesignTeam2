@@ -61,7 +61,7 @@ public class WordCountMaker {
 		TableController dJController = new TableController(dJWriteStrategy, dJReturnSetStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 		ResultSet returnList = dJController.retrieveDataFromDB("DJOpening", date, date.toString());
 		List<DataObject> dataObjectList = dJController.returnSetStrategy(returnList);
-		BigDecimal dowValue = ((DJObject)dataObjectList).getOpeningValue();
+		BigDecimal dowValue = ((DJObject)dataObjectList.get(0)).getOpeningValue();
 		return dowValue.intValue();
 	}
 	
