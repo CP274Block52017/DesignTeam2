@@ -6,7 +6,8 @@ import org.junit.Test;
 import org.neuroph.core.data.DataSet;
 
 import NeuralNetwork.dataFormatter;
-import NeuralNetwork.Perceptron;
+import NeuralNetwork.ANNMetricRetriever;
+import NeuralNetwork.BackPropagatingNN;
 
 public class ANNTester {
 	
@@ -14,7 +15,7 @@ public class ANNTester {
 	@Test
 	public void dataParsing() {
 		dataFormatter d = new dataFormatter();
-    	DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertTrue(trainingAndTestSet.length == 2);
 	}
@@ -22,54 +23,77 @@ public class ANNTester {
 	@Test
 	public void dataParsingSeperateSizes() {
 		dataFormatter d = new dataFormatter();
-    	DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
     	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
     	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
 	}
-	//makes sure ANN doesn't crash!!
+	//Makes a BackPropagatingNN and configures it.
 	@Test
-	public void runANN() {
+	public void configuratonDoesNotCrash() {
 		dataFormatter d = new dataFormatter();
-		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
-		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		Perceptron p = new Perceptron();
-		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
-		p.print();
-		assertTrue(true); //it doesn't crash!!
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
+    	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
+    	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
+		BackPropagatingNN ANN = new BackPropagatingNN();
+		ANN.configure(trainingAndTestSet[0].getInputSize(), trainingAndTestSet[0].getOutputSize(), .5, .001, 5050);
+		assertTrue(true);
 	}
-	//makes sure percent correct is in proper range.
+	//Makes sure BackPropagatingNN completes training.
 	@Test
-	public void getPercentCorrect() {
+	public void trainingCompletes() {
 		dataFormatter d = new dataFormatter();
-		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
-		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		Perceptron p = new Perceptron();
-		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
-		double percentCorrect = p.getPercentCorrect();
-		assertTrue((percentCorrect > 0) && (percentCorrect < 100.01)); 
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
+    	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
+    	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
+		BackPropagatingNN ANN = new BackPropagatingNN();
+		ANN.configure(trainingAndTestSet[0].getInputSize(), trainingAndTestSet[0].getOutputSize(), .5, .001, 5050);
+		ANN.train(trainingAndTestSet[0]);
+		assertTrue(true);
 	}
-	//makes sure percent correct is over 50
-	@Test
-	public void accuracyOver50() {
-		dataFormatter d = new dataFormatter();
-		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
-		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		Perceptron p = new Perceptron();
-		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
-		assertFalse(p.getPercentCorrect()<50); 
-	}
-	//makes sure percent correct is over 65. Working adequately
-	@Test
-	public void accuracyOver65() {
-		dataFormatter d = new dataFormatter();
-		DataSet normalizedSet = d.getNormalizedSet("Data/breastcancer.txt", 30, 2);
-		DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
-		Perceptron p = new Perceptron();
-		p.run(trainingAndTestSet[0], trainingAndTestSet[1], 30, 2);
-		assertTrue(p.getPercentCorrect()>65); 
-	}
-	
 
-
+	@Test
+	//comment on problem of intertwined tests
+	public void metricsInRange() {
+		dataFormatter d = new dataFormatter();
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
+    	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
+    	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
+		BackPropagatingNN ANN = new BackPropagatingNN();
+		ANN.configure(trainingAndTestSet[0].getInputSize(), trainingAndTestSet[0].getOutputSize(), .5, .001, 5050);
+		ANN.train(trainingAndTestSet[0]);
+		ANNMetricRetriever tester = new ANNMetricRetriever(ANN);
+		
+		tester.setMetrics(trainingAndTestSet[1]);
+		boolean standdevWorking = tester.getStandardDeviation() < 17000;
+		boolean getPercentAccWorking =  (tester.getPercentExactEstimates() <= 100)
+		& (tester.getPercentExactEstimates() >= 0);
+		boolean getPercentOverWorking = (tester.getPercentOverestimated() <= 100)
+				& (tester.getPercentOverestimated() >= 0);
+		boolean getPercentUnderWorking = (tester.getPercentUnderestimated() <= 100)
+				& (tester.getPercentUnderestimated() >= 0);
+		
+		assertTrue(standdevWorking);
+		assertTrue(getPercentAccWorking);
+		assertTrue(getPercentOverWorking);
+		assertTrue(getPercentUnderWorking);
+	}
+	@Test
+	public void accurateResults() {
+		dataFormatter d = new dataFormatter();
+    	DataSet normalizedSet = d.getNormalizedSet("Data/testData.txt", 9, 16);
+    	DataSet[] trainingAndTestSet = d.getTrainingandTest(normalizedSet, 70, 30);
+    	assertFalse(trainingAndTestSet[0].size() < trainingAndTestSet[1].size());
+		BackPropagatingNN ANN = new BackPropagatingNN();
+		ANN.configure(trainingAndTestSet[0].getInputSize(), trainingAndTestSet[0].getOutputSize(), .5, .001, 5050);
+		ANN.train(trainingAndTestSet[0]);
+		ANNMetricRetriever tester = new ANNMetricRetriever(ANN);
+		
+		tester.setMetrics(trainingAndTestSet[1]);
+		boolean standdevUnder5000 = tester.getStandardDeviation() < 5000;
+		boolean standdevUnder1000 = tester.getStandardDeviation() < 5000;
+		assertTrue(standdevUnder5000);
+		assertTrue(standdevUnder1000);
+		tester.printResults();
+	}
 
 }
