@@ -44,6 +44,7 @@ public class JSONCoversionTest {
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		List<DateStringObject> dataStringList = (List<DateStringObject>) dataObjectList;
 	}
+	
 	@Test
 	public void test() {
 		JSONCoverter conversion = new JSONCoverter();

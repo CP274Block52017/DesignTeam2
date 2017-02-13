@@ -9,7 +9,7 @@ public class ListStringArraysToNSObject implements ListStringArraysToDataObject 
 
 	@Override
 	public List<DataObject> stringtoDataObject(List<String[]> file) {
-		int numOfDJtoUpload = 25;
+		int numOfDJtoUpload = 100; //change number in DJWriteStrategy
 		List<DataObject> returnSet = new ArrayList<DataObject>();
 		for(int i=0;i< numOfDJtoUpload;i++){
 			java.sql.Date sqlDate = java.sql.Date.valueOf(file.get(i)[0]);

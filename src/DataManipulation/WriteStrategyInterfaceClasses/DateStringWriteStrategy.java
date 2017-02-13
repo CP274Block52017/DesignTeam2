@@ -14,7 +14,7 @@ public class DateStringWriteStrategy implements WriteStrategy {
 	@Override
 	public void writeToTable(List<DataObject> file, Connection databaseConnection) throws SQLException, ParseException {
 		String query = "insert into NewsHeadlines (date, headline) values (?,?)";
-		int NumConvertedDataObjects = 25;
+		int NumConvertedDataObjects = 100; //change number in ListStringsArraysTONSObject
 		PreparedStatement preparedStatement = databaseConnection.prepareStatement(query);
 		for(int i=0;i< NumConvertedDataObjects;i++){
 			java.sql.Date sqlDate = file.get(i).getDate();

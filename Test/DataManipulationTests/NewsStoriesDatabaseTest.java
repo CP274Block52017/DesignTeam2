@@ -14,8 +14,10 @@ import DataManipulation.*;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
+import DataManipulation.ReturnSetStrategyInterfaceClasses.DayStringsReturnSetStrategy;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.NSReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
+import preprocessing.DayStrings;
 
 public class NewsStoriesDatabaseTest {
 	private List<DataObject> NSList;
@@ -81,6 +83,7 @@ public class NewsStoriesDatabaseTest {
 		String correctHeadline = "Ozone layer hole seems to be healing - US &amp; UK team shows it's shrunk &amp; may slowly recover. \"If you had to have an ozone hole anywhere in the world, it'd be Antarctica because its not teeming with life. It showed us if we didnt back off with these chemicals, wed have a crisis.\"";
 		assertEquals(correctHeadline,((DateStringObject) dataObjectList.get(24)).getString());
 	}
+	
 	
 	@After
 	public void cleanUp() throws SQLException{

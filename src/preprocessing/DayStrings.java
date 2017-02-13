@@ -1,6 +1,8 @@
 package preprocessing;
 
-public class DayStrings {
+import DataManipulation.DataObjectInterfaceClasses.DataObject;
+
+public class DayStrings implements DataObject{
 	private java.sql.Date date;
 	private String[] stringArray;
 	
