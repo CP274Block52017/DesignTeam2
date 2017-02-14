@@ -7,8 +7,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import DataManipulation.DataObjectInterfaceClasses.DayStrings;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
+
+
+/**
+ * The main method, "removePrepositions", takes a list of DayStrings objects each containing
+ * a date and all of the new headlines for that day. It processes each dayString object and
+ * returns a new list of DayStrings object each containing a date and a list of words for that
+ * date with only nouns and verbs.
+ */
 
 public class PrepositionRemover {
 	public List<DayStrings> removePrepositions(List<DayStrings> dayStoryList) throws FileNotFoundException{

@@ -11,7 +11,6 @@ import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.ReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy; 
 	
-	//TableController used to run tests and for compositional design with mutiple interfaces
 
 /**
  * This class serves to write the data sets to database tables, retrieve information from the database,
@@ -19,12 +18,12 @@ import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy;
  * This implements a compositional design pattern using a WriteStrategy interface and ReturnSetStrategy interface.
  *
  */
-public class TableController {
+public class DataManipulationController {
 	private WriteStrategy writeStrategy;
 	private Connection databaseConnection;
 	private ReturnSetStrategy returnSetStrategy;
 	
-	public TableController(WriteStrategy writeStrategy, ReturnSetStrategy returnSetStrategy, String databaseAddress) throws SQLException {
+	public DataManipulationController(WriteStrategy writeStrategy, ReturnSetStrategy returnSetStrategy, String databaseAddress) throws SQLException {
 		this.writeStrategy = writeStrategy;
 		this.returnSetStrategy = returnSetStrategy;
 		this.databaseConnection = DriverManager.getConnection(databaseAddress);

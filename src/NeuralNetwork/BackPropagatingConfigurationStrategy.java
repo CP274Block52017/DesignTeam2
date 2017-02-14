@@ -5,6 +5,7 @@ import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.MomentumBackpropagation;
 import org.neuroph.util.TransferFunctionType;
 
+
 public class BackPropagatingConfigurationStrategy implements ConfigurationStrategy{
 	public NeuralNetwork configure(ConfigurationObject configurationObject){
 		//initialize neural network with 20 nodes in hidden layer. Sigmoid activation nodes with Back Propagation
