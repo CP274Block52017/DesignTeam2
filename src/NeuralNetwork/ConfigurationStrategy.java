@@ -1,4 +1,7 @@
+package NeuralNetwork;
 
-public class ConfigurationStrategy {
+import org.neuroph.core.NeuralNetwork;
+
+public interface ConfigurationStrategy {
 	public NeuralNetwork configure(ConfigurationObject configurationObject);
 }

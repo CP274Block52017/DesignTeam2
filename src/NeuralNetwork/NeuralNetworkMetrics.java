@@ -4,23 +4,23 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 
 //Object for testing efficiency and accurateness of NN. Good so the user can know the accuracy of the model.
-public class ANNMetricRetriever {
+public class NeuralNetworkMetrics {
 	
-	ANN neuralNet;
+	NeuralNetworkController neuralNetworkController;
 	int standardDeviation = 0; //standard deviation between actual and predicted DIJA
 	int exactEstimates = 0;
 	int overestimates = 0;
 	int underestimates = 0;
 	int total = 0;
 	
-	public ANNMetricRetriever(ANN neuralNet) {
-		this.neuralNet = neuralNet;
+	public NeuralNetworkMetrics(NeuralNetworkController neuralNet) {
+		this.neuralNetworkController = neuralNet;
 	}
 	public int setMetrics(DataSet testSet) {
 		total = testSet.size();
         for (DataSetRow testSetRow : testSet.getRows()) { //gets each row in the testSet
-        	int prediction = neuralNet.getPredictedOutput(testSetRow); //records if the prediction was over, under, or exactly the actual dow.
-        	int actual = neuralNet.getActualOutput(testSetRow);
+        	int prediction = neuralNetworkController.getPredictedOutput(testSetRow); //records if the prediction was over, under, or exactly the actual dow.
+        	int actual = neuralNetworkController.getActualOutput(testSetRow);
         	standardDeviation += Math.abs(prediction-actual);
         	if(actual == prediction) {exactEstimates++;}
         	else if(actual > prediction) {overestimates++;}

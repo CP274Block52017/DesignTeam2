@@ -1,3 +1,5 @@
+package NeuralNetwork;
+
 
 public class ConfigurationObject {
 	public int inputSize;

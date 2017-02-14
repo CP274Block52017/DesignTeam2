@@ -8,14 +8,13 @@ import org.neuroph.core.data.DataSetRow;
 import org.neuroph.util.data.norm.MaxNormalizer;
 import org.neuroph.util.data.norm.Normalizer;
 
-public class ANNDataFormatter {
+public class NeuralNetworkDataFormatter {
 	
 	//Output is 1 item (DJIA)
 	//Binary Size is binary representation of DJIA put into output
-	int OUTPUT_SIZE = 1;
-	int BINARY_SIZE = 16;
-	
-	public ANNDataFormatter() {}
+	private final int OUTPUT_SIZE = 1;
+	private final int BINARY_SIZE = 16;
+
 	//'set' input is (DJIA,Month,Day,Year,word counts.........) for each day. 
 	//Takes in 'set' and puts it into DataSet object for ANN. 
 	//Makes input Month, Day, Year, word counts and output the DJIA in binary form in array of 16 length.
