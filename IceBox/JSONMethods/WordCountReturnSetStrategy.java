@@ -1,4 +1,4 @@
-package preprocessing;
+package DataManipulation.ReturnSetStrategyInterfaceClasses;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,8 +7,11 @@ import java.util.List;
 
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
-import DataManipulation.ReturnSetStrategyInterfaceClasses.ReturnSetStrategy;
 
+/**
+ * @author Eli
+ *
+ */
 public class WordCountReturnSetStrategy implements ReturnSetStrategy {
 
 	@Override

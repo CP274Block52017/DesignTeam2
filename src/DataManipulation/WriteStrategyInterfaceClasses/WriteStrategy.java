@@ -7,9 +7,12 @@ import java.util.List;
 
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
-// writes/uploads converted objects from ListStringArraysToDataObject classes 
-//to the database and their corresponding tables
 
+/**
+ * This interface defines the method for writing data objects to their
+ * corresponding tables in the database.
+ * 
+ */
 public interface WriteStrategy {
 	void writeToTable(List<DataObject> file, Connection databaseConnection) throws SQLException, ParseException;
 

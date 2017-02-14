@@ -18,7 +18,7 @@ import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToDJObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DJReturnSetStrategy;
-import DataManipulation.ReturnSetStrategyInterfaceClasses.NSReturnSetStrategy;
+import DataManipulation.ReturnSetStrategyInterfaceClasses.DateStringReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DJWriteStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
@@ -59,7 +59,7 @@ public class ReadDateRangeFromDBTest {
 		ListStringArraysToNSObject NSconversion = new ListStringArraysToNSObject();
 		NSList = NSconversion.stringtoDataObject(NSStringList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
-		NSReturnSetStrategy NSReturnStrategy = new NSReturnSetStrategy();
+		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
 		NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 
 	}

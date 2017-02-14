@@ -8,7 +8,11 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 
-public class NSReturnSetStrategy implements ReturnSetStrategy {
+/**
+ * @author Eli
+ *
+ */
+public class DateStringReturnSetStrategy implements ReturnSetStrategy {
 
 	@Override
 	public List<DataObject> returnSetToDataObject(ResultSet resultSet) throws SQLException {

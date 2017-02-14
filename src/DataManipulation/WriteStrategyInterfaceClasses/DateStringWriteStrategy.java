@@ -9,6 +9,12 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 
+/**
+ * This class implements WriteStrategy in order to define
+ * the method for writing headlines and their dates to the 
+ * NewsHeadlines table in our database.
+ *
+ */
 public class DateStringWriteStrategy implements WriteStrategy {
 
 	@Override

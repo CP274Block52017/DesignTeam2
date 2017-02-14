@@ -3,7 +3,11 @@ import java.util.List;
 
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
-//Conversion from the CSVreader's output to List<DataObject> (objects to retrieve dates and other types)
+/**
+ * This interface is used to convert from CSV reader output (list of string arrays)
+ * to specific writable data for the mysql database.
+ *
+ */
 
 public interface ListStringArraysToDataObject {
 	List<DataObject> stringtoDataObject(List<String[]> file);

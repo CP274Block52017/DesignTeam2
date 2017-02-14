@@ -7,6 +7,13 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DJObject;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
+/**
+ * This class implements ListStringArraysToDataObject to convert
+ * output from the CSV reader to an object containing a Dow Jones value and date.
+ * It is used to write Dow Jones values and their corresponding dates to the
+ * DJOpening table in the database.
+ *
+ */
 public class ListStringArraysToDJObject implements ListStringArraysToDataObject {
 	public List<DataObject> stringtoDataObject(List<String[]> file){
 		int numOfDJtoUpload = 100;//if number is changed, please change number in DJWriteStrategy
