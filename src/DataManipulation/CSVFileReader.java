@@ -7,6 +7,11 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 
+/**
+ * This class serves to read CSV Files and converts the data into a list of string arrays.
+ * The readFile method is currently used to read in the DJIA and Reddit News Data sets in /Data
+ *
+ */
 public class CSVFileReader {
 	
 

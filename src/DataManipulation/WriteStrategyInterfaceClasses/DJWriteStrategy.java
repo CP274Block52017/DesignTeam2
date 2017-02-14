@@ -10,6 +10,13 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DJObject;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
+
+/**
+ * This class implements WriteStrategy in order to define
+ * the method for writing Dow Jones opening values and their dates to the 
+ * DJOpening table in our database.
+ *
+ */
 public class DJWriteStrategy implements WriteStrategy {
 
 	@Override

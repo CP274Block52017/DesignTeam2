@@ -5,6 +5,13 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 
+/**
+ * This class implements ListStringArraysToDataObject to convert
+ * output from the CSV reader to an object containing news stories and a date.
+ * It is used to write news stories and their corresponding dates to the
+ * NewsHeadlines table in the database.
+ *
+ */
 public class ListStringArraysToNSObject implements ListStringArraysToDataObject {
 
 	@Override

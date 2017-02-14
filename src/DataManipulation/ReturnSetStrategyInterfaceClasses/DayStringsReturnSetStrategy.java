@@ -5,10 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 import preprocessing.DayStrings;
 
+/**
+ * This class is used to convert data sets retrieved from the database
+ * into DayStringsObjects that can be used by the preprocessor to create
+ * input values for the neural network.
+ *
+ */
 public class DayStringsReturnSetStrategy {
 
 	public List<DayStrings> returnSetToDataObject(ResultSet resultSet) throws SQLException {

@@ -11,6 +11,12 @@ import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.ReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy; 
 
+/**
+ * This class serves to write the data sets to database tables, retrieve information from the database,
+ * convert retrieve information into data objects and contains a method to delete data sets from the database.
+ * This implements a compositional design pattern using a WriteStrategy interface and ReturnSetStrategy interface.
+ *
+ */
 public class TableController {
 	private WriteStrategy writeStrategy;
 	private Connection databaseConnection;
