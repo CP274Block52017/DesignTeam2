@@ -8,13 +8,14 @@ import org.neuroph.nnet.learning.MomentumBackpropagation;
 import org.neuroph.util.TransferFunctionType;
 
 
-public class BackPropagatingNN implements ANN {
+public class NeuralNetworkController{
 
-    MultiLayerPerceptron neuralNet;
+    NeuralNetwork neuralNet;
+    ConfigurationStrategy configurationStrategy;
 
     //Create neural network and train 
-    public void configure(int inputSize, int outputSize, double learnRate, double maxError, int maxIterations) {
-    	
+    public void configure(ConfigurationObject configurationObject) {
+    	this.neuralNet = configurationStrategy.configure(configurationObject);
     	//initialize neural network with 20 nodes in hidden layer. Sigmoid activation nodes with Back Propagation
     	int hiddenLayerSize = 20;
         neuralNet = new MultiLayerPerceptron(TransferFunctionType.SIGMOID, inputSize, hiddenLayerSize, outputSize);
