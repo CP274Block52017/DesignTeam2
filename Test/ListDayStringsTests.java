@@ -15,7 +15,7 @@ import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DayStringsReturnSetStrategy;
-import DataManipulation.ReturnSetStrategyInterfaceClasses.NSReturnSetStrategy;
+import DataManipulation.ReturnSetStrategyInterfaceClasses.DateStringReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 import preprocessing.DayStrings;
 
@@ -45,7 +45,7 @@ public class ListDayStringsTests {
 		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
 		NSList = conversion.stringtoDataObject(stringList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
-		NSReturnSetStrategy NSReturnStrategy = new NSReturnSetStrategy();
+		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
 		NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	}
 	

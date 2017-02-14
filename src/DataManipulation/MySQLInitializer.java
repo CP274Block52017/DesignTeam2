@@ -5,10 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/* Creates Database and three tables (DJOpening, NewsHeadlines, and WordCount) 
- * Missing tables will not be created if the whole database is not missing.
- * Note: WordCount table is not currently used.
- * */
 
 public class MySQLInitializer {
 
@@ -26,7 +22,6 @@ public class MySQLInitializer {
 			createDB();
 			createDJIATable();
 			createNewsStoriesTable();
-			createWordCountTable();
 			}
 	}
 	
@@ -69,18 +64,6 @@ public class MySQLInitializer {
 		databaseStatement = databaseConnection.createStatement();
 		databaseStatement.execute(query);
 		query = "ALTER TABLE `NewsHeadlines` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1470;";
-		databaseStatement = databaseConnection.createStatement();
-		databaseStatement.execute(query);
-	}
-	
-	private void createWordCountTable() throws SQLException{
-		String query = "CREATE TABLE `WordCount` (`id` int(11) NOT NULL,`date` date DEFAULT NULL,`wordCount` text) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-		Statement databaseStatement = databaseConnection.createStatement();
-		databaseStatement.execute(query);
-		query = "ALTER TABLE `WordCount` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);";
-		databaseStatement = databaseConnection.createStatement();
-		databaseStatement.execute(query);
-		query = "ALTER TABLE `WordCount` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1470;";
 		databaseStatement = databaseConnection.createStatement();
 		databaseStatement.execute(query);
 	}

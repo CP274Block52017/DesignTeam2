@@ -9,6 +9,11 @@ import java.util.List;
 import DataManipulation.DataObjectInterfaceClasses.DJObject;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 
+/**
+ * This class is used to convert data sets retrieved from the database
+ * into DJObjects that can be used by the preprocessor to create
+ * input values for the neural network.
+ */
 public class DJReturnSetStrategy implements ReturnSetStrategy {
 
 	@Override
