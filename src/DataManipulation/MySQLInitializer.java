@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 /**
  * This class serves to create the database "Omnipredictor" if it does not already exist.
- * It initializes tables: "DJOpening" and "NewsHeadlines"
+ * It initializes tables: "DJOpening" and "NewsHeadlines" a
  *
  */
 public class MySQLInitializer {
