@@ -28,25 +28,32 @@ import java.util.ArrayList;
 
 public class WordCountMaker {
 	//Get unique word list for all days and check counts of each unique word for each day
-	public List<int[]> getWordCounts(List<DayStrings> dayWordList) throws SQLException, ParseException{
+	public List<int[]> getWordCounts(List<DayStrings> dayWordList, List<DataObject> dateDJList) throws SQLException, ParseException{
 		List<String> uniqueWordsAllDays = getUniqueWordList(dayWordList);
-		return getWordCountList(dayWordList, uniqueWordsAllDays);
+		return getWordCountList(dayWordList, uniqueWordsAllDays, dateDJList);
 	}
 	
 	//Get counts of each unique word for each day
-	private List<int[]> getWordCountList(List<DayStrings> dayWordList, List<String> uniqueWordsAllDays) throws SQLException, ParseException{
+	private List<int[]> getWordCountList(List<DayStrings> dayWordList, List<String> uniqueWordsAllDays, List<DataObject> dateDJList) throws SQLException, ParseException{
 		List<int[]> returnList = new ArrayList<int[]>();
 		for(DayStrings i : dayWordList){
-			int[] NNSingleArray = getNNSingleArray(i,uniqueWordsAllDays);
+			java.sql.Date DJDate = null;
+			BigDecimal dowValue = null;
+			for(DataObject j: dateDJList){
+				if(i.getDate().compareTo(j.getDate()) == 0){
+					 DJDate = j.getDate();
+					 dowValue = ((DJObject)j).getOpeningValue(); 
+				}
+			}
+			int[] NNSingleArray = getNNSingleArray(DJDate, dowValue, i, uniqueWordsAllDays);
 			returnList.add(NNSingleArray);
 		}
 		return returnList;
 	}
-	
 	//Get an int array formatted correctly for the neural network for each day
-	private int[] getNNSingleArray(DayStrings i, List<String> uniqueWordsAllDays) throws SQLException, ParseException{
+	private int[] getNNSingleArray(java.sql.Date DJDate, BigDecimal dowValue, DayStrings i, List<String> uniqueWordsAllDays) throws SQLException, ParseException{
 		int headerSize = 4;
-		int[] NNSingleArray = getHeaderInfo(i, uniqueWordsAllDays.size(), headerSize);
+		int[] NNSingleArray = getHeaderInfo(DJDate, dowValue, uniqueWordsAllDays.size(), headerSize);
 		String[] wordList = i.getStringArray();
 		for(int j = 0;j<uniqueWordsAllDays.size();j++){
 			NNSingleArray[j+headerSize] = getCount(wordList,uniqueWordsAllDays.get(j));
@@ -55,10 +62,10 @@ public class WordCountMaker {
 	}
 	
 	//Add header info to int array for neural network
-	private int[] getHeaderInfo(DayStrings i, int uniqueWordsSize, int headerSize) throws SQLException, ParseException{
+	private int[] getHeaderInfo(java.sql.Date DJDate, BigDecimal dowValue, int uniqueWordsSize, int headerSize) throws SQLException, ParseException{
 		int[] NNSingleArray = new int[uniqueWordsSize+headerSize];
-		NNSingleArray[0] = getDOW(i.getDate().toString());
-		java.sql.Date date = i.getDate();
+		NNSingleArray[0] = dowValue.intValue();
+		java.sql.Date date = DJDate;
 		LocalDate localDate = date.toLocalDate();
 		NNSingleArray[1] = localDate.getDayOfMonth();
 		NNSingleArray[2] = localDate.getMonthValue();
@@ -66,26 +73,6 @@ public class WordCountMaker {
 		return NNSingleArray;
 	}
 	
-	//Get DOW value from a date
-	private int getDOW(String date) throws SQLException, ParseException{
-		CSVFileReader reader = new CSVFileReader();
-		
-		List<String[]> stringList = reader.readFile("Data/DJIA_table.csv");
-		ListStringArraysToDJObject conversion = new ListStringArraysToDJObject();
-		List<DataObject> DJList = conversion.stringtoDataObject(stringList);
-		String localhostID = "8889";
-		String username = "root";
-		String password = "root";
-		DJWriteStrategy dJWriteStrategy = new DJWriteStrategy();
-		DJReturnSetStrategy dJReturnSetStrategy = new DJReturnSetStrategy();
-		DatabaseController dJController = new DatabaseController(dJWriteStrategy, dJReturnSetStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
-		dJController.writeListtoDB(DJList);
-		ResultSet returnList = dJController.retrieveDataFromDB("DJOpening", date, date.toString());
-		List<DataObject> dataObjectList = dJController.returnSetStrategy(returnList);
-		BigDecimal dowValue = ((DJObject)dataObjectList.get(0)).getOpeningValue();
-		dJController.deleteAll("DJOpening");
-		return dowValue.intValue();
-	}
 	
 	//Get instances of a word in a wordlist
 	private int getCount(String[] wordList, String word){

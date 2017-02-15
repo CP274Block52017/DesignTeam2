@@ -11,6 +11,7 @@ import java.util.List;
 import org.neuroph.core.data.DataSet;
 
 import dataBase.CSVFileReader;
+import dataBase.DJObject;
 import dataBase.DJReturnSetStrategy;
 import dataBase.DJWriteStrategy;
 import dataBase.DataObject;
@@ -62,7 +63,7 @@ public class Controller {
 		List<DayStrings> removedPrepsList = preprocessingController.removePrepositions(nsDayStringsList);
 		//System.out.println("removed prep list");
 		//printDayStringsList(removedPrepsList);
-		List<int[]> wordCounts = preprocessingController.getNNList(removedPrepsList);
+		List<int[]> wordCounts = preprocessingController.getNNList(removedPrepsList, DJObject);
 		System.out.println("word counts");
 		for(int[] i : wordCounts){
 			System.out.println(Arrays.toString(i));

@@ -46,7 +46,6 @@ public class DatabaseController {
 	}
 	
 	public void deleteAll(String tableName) throws SQLException{
-		System.out.println("TABLE NAME : "+tableName);
 		Statement databaseStatement = databaseConnection.createStatement();
 		String deleteCommand = "DELETE FROM " + tableName;
 		databaseStatement.execute(deleteCommand);
