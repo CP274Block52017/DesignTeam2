@@ -14,6 +14,7 @@ import DataManipulation.CSVFileReader;
 import DataManipulation.MySQLInitializer;
 import DataManipulation.DataManipulationController;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
+import DataManipulation.DataObjectInterfaceClasses.DayStrings;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToDJObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DJReturnSetStrategy;
@@ -26,7 +27,6 @@ import NeuralNetwork.ConfigurationObject;
 import NeuralNetwork.NeuralNetworkController;
 import NeuralNetwork.NeuralNetworkDataFormatter;
 import NeuralNetwork.NeuralNetworkMetrics;
-import preprocessing.DayStrings;
 import preprocessing.PreprocessingController;
 
 public class Controller {
