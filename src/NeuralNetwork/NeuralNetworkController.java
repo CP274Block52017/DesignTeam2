@@ -8,6 +8,11 @@ import org.neuroph.nnet.learning.MomentumBackpropagation;
 import org.neuroph.util.TransferFunctionType;
 
 
+/**
+ * NeuralNetwork that trains on data set, predicts the output for a row, get's the actual output for a row, and converts it to base
+ * 10 for understandability. Uses a strategy pattern for picking the specific type of neural network.
+ *
+ */
 public class NeuralNetworkController{
 
     NeuralNetwork neuralNet;

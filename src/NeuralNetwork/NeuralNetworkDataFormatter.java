@@ -8,6 +8,10 @@ import org.neuroph.core.data.DataSetRow;
 import org.neuroph.util.data.norm.MaxNormalizer;
 import org.neuroph.util.data.norm.Normalizer;
 
+/**
+ * Takes in the list of strings from the preprocessing controller and formats it for input into the neural network i.e. converts
+ * a list of strings into a data set object with a binary dow representation.
+ */
 public class NeuralNetworkDataFormatter {
 	
 	//Output is 1 item (DJIA)
