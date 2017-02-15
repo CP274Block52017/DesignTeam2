@@ -6,3 +6,5 @@ Start MAMP on your computer. If your MAMP port is not 8889 (the default port): p
 
 You can now run the Test folder as a JUnit test. 
 
+To begin the program, run the main method Controller.java in the controller package in src. When the program starts, both the start and end date must be between 2008-08-08 and 2016-07-01 and the dates must be three or more days apart and in the correct format: yyyy-mm-dd.
+
