@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import dataBase.DJObject;
+import dataBase.DataObject;
 import dataBase.DayStrings;
 
 /**
@@ -15,11 +17,11 @@ public final class PreprocessingController {
 	
 	public List<DayStrings> removePrepositions(List<DayStrings> dayStoryList) throws FileNotFoundException{
 		PrepositionRemover prepRemover = new PrepositionRemover();
-		return prepRemover.removePrepositions(dayStoryList);
+		return prepRemover.removePrepositions(dayStoryList );
 	}
 	
-	public List<int[]> getNNList(List<DayStrings> dayStoryList) throws SQLException, ParseException{
+	public List<int[]> getNNList(List<DayStrings> dayStoryList, List<DataObject> dateDJList) throws SQLException, ParseException{
 		WordCountMaker wordCounter = new WordCountMaker();
-		return wordCounter.getWordCounts(dayStoryList);
+		return wordCounter.getWordCounts(dayStoryList, dateDJList);
 	}
 }

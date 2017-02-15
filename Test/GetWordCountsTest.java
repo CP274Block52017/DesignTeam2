@@ -9,16 +9,26 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import dataBase.CSVFileReader;
+import dataBase.DataObject;
 import dataBase.DayStrings;
+import dataBase.ListStringArraysToDJObject;
 import preprocessing.*;
 
 public class GetWordCountsTest {
 	private List<DayStrings> dayStoriesList = new ArrayList<DayStrings>();
 	private List<DayStrings> multipleDaysStories = new ArrayList<DayStrings>();
 	private List<DayStrings> repeatedStories = new ArrayList<DayStrings>();
-
+	private List<DataObject> DJList;
 	private PreprocessingController preprocessingController = new PreprocessingController();
 
+	@Before
+	public void setupDateDJOpening(){
+		CSVFileReader reader = new CSVFileReader();
+		List<String[]> stringList = reader.readFile("Data/DJIA_table.csv");
+		ListStringArraysToDJObject conversion = new ListStringArraysToDJObject();
+		DJList = conversion.stringtoDataObject(stringList);
+	}
 	public void setupSingleDayScenario(){
 		//Set up single day scenario
 		String dateString = "2016-07-01";
@@ -56,15 +66,14 @@ public class GetWordCountsTest {
 		storyList3[0] = "IMF chief backs Athens as permanent Olympic host";
 		storyList3[1] = "IMF chief Athens as permanent Olympic host";
 		DayStrings dayStories3 = new DayStrings(date3,storyList3);
-		repeatedStories.add(dayStories3);
-		
+		repeatedStories.add(dayStories3);		
 	}
 	
 	@Test
 	public void getWordCountsReturnsCorrectSizeListOfIntArrays() throws FileNotFoundException, SQLException, ParseException {
 		setupSingleDayScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(dayStoriesList);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0).length, 16);
 		
 	}
@@ -73,7 +82,7 @@ public class GetWordCountsTest {
 	public void correctWordCountsMultipleDays() throws FileNotFoundException, SQLException, ParseException {
 		setupMultipleDaysScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(multipleDaysStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(1).length, wordCounts.get(0).length);
 		
 	}
@@ -82,7 +91,7 @@ public class GetWordCountsTest {
 	public void repeatedWordsNotCountedTwice() throws FileNotFoundException, SQLException, ParseException {
 		setupRepeatedStoryScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(repeatedStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0).length, 9);
 
 	}
@@ -91,7 +100,7 @@ public class GetWordCountsTest {
 	public void headerDOWIsCorrect() throws FileNotFoundException, SQLException, ParseException{
 		setupRepeatedStoryScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(repeatedStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0)[0],17456);
 	}
 	
@@ -99,7 +108,7 @@ public class GetWordCountsTest {
 	public void headerDayIsCorrect() throws SQLException, FileNotFoundException, ParseException{
 		setupRepeatedStoryScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(repeatedStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0)[1],29);
 	}
 	
@@ -107,7 +116,7 @@ public class GetWordCountsTest {
 	public void headerMonthIsCorrect() throws SQLException, FileNotFoundException, ParseException{
 		setupRepeatedStoryScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(repeatedStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0)[2],6);
 	}
 	
@@ -115,7 +124,7 @@ public class GetWordCountsTest {
 	public void headerYearIsCorrect() throws SQLException, FileNotFoundException, ParseException{
 		setupRepeatedStoryScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(repeatedStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0)[3],2016);
 	}
 	
@@ -123,7 +132,7 @@ public class GetWordCountsTest {
 	public void firstUniqueWordCountIsCorrect() throws SQLException, FileNotFoundException, ParseException{
 		setupRepeatedStoryScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(repeatedStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0)[4],2);
 	}
 	
@@ -131,7 +140,7 @@ public class GetWordCountsTest {
 	public void secondUniqueWordHasCount1() throws SQLException, FileNotFoundException, ParseException{
 		setupRepeatedStoryScenario();
 		List<DayStrings> withoutPrepositions = preprocessingController.removePrepositions(repeatedStories);
-		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions);
+		List<int[]> wordCounts = preprocessingController.getNNList(withoutPrepositions, DJList);
 		assertEquals(wordCounts.get(0)[5],1);
 	}
 
