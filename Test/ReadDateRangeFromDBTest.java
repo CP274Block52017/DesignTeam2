@@ -48,7 +48,7 @@ public class ReadDateRangeFromDBTest {
 	
 		ListStringArraysToNSObject NSconversion = new ListStringArraysToNSObject();
 		NSList = NSconversion.stringtoDataObject(NSStringList);
-		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
+		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
 		NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 
