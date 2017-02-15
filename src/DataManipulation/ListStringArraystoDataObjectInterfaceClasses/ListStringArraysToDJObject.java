@@ -19,7 +19,7 @@ public class ListStringArraysToDJObject implements ListStringArraysToDataObject 
 		int numOfDJtoUpload = 100;//if number is changed, please change number in DJWriteStrategy
 		//Uploading 8 years worth of information will take too long for JUnit tests
 		List<DataObject> returnSet = new ArrayList<DataObject>();
-		for(int i=0;i< numOfDJtoUpload;i++){
+		for(int i=0;i< file.size();i++){
 			java.sql.Date sqlDate = java.sql.Date.valueOf(file.get(i)[0]);
 			BigDecimal sqlDecimal = new BigDecimal(file.get(i)[1]);
 			DJObject rowObject = new DJObject(sqlDate,sqlDecimal);
