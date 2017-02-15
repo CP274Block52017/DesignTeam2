@@ -24,9 +24,13 @@ public class DayStringsReturnSetStrategy {
 			DateStringObject rowObject = new DateStringObject(date,headline);
 			dataList.add(rowObject);
 		}
+		/*System.out.println(dataList.size());
+		for(DateStringObject i:dataList){
+			System.out.println(i.getDate());
+			System.out.println(i.getString());
+		}*/
 		List<DayStrings> returnList = new ArrayList<DayStrings>();
 		for(DateStringObject i : dataList){
-			System.out.println(returnList.size());
 			java.sql.Date date = i.getDate();
 			if(listDoesNotContainDate(returnList,date)){
 				List<String> stringList = new ArrayList<String>();
