@@ -12,13 +12,11 @@ import java.util.List;
  * NewsHeadlines table in our database.
  *
  */
-public class DateStringWriteStrategy implements WriteStrategy {
+public class NSWriteStrategy implements WriteStrategy {
 
 	@Override
 	public void writeToTable(List<DataObject> file, Connection databaseConnection) throws SQLException, ParseException {
 		String query = "insert into NewsHeadlines (date, headline) values (?,?)";
-		int NumConvertedDataObjects = 100; //if number is changed, also change number in ListStringsArraysTONSObject
-		//Uploading 8 years worth of information will take too long for JUnit tests
 		PreparedStatement preparedStatement = databaseConnection.prepareStatement(query);
 		for(int i=0;i< file.size();i++){
 			java.sql.Date sqlDate = file.get(i).getDate();

@@ -11,9 +11,9 @@ import java.util.List;
  * input values for the neural network.
  *
  */
-public class DayStringsReturnSetStrategy {
+public class DayStringsReturnSetStrategy implements ReturnSetStrategy{
 
-	public List<DayStrings> returnSetToDataObject(ResultSet resultSet) throws SQLException {
+	public List<DataObject> returnSetToDataObject(ResultSet resultSet) throws SQLException {
 		List<DateStringObject> dataList = new ArrayList<DateStringObject>();
 		while (resultSet.next()) {
 			java.sql.Date date = resultSet.getDate("date");
@@ -26,7 +26,7 @@ public class DayStringsReturnSetStrategy {
 			System.out.println(i.getDate());
 			System.out.println(i.getString());
 		}*/
-		List<DayStrings> returnList = new ArrayList<DayStrings>();
+		List<DataObject> returnList = new ArrayList<DataObject>();
 		for(DateStringObject i : dataList){
 			java.sql.Date date = i.getDate();
 			if(listDoesNotContainDate(returnList,date)){
@@ -45,9 +45,9 @@ public class DayStringsReturnSetStrategy {
 		return returnList;
 	}
 	
-	private boolean listDoesNotContainDate(List<DayStrings> dayStrings, java.sql.Date date){
+	private boolean listDoesNotContainDate(List<DataObject> dayStrings, java.sql.Date date){
 		boolean returnValue = true;
-		for(DayStrings i : dayStrings){
+		for(DataObject i : dayStrings){
 			if(i.getDate().compareTo(date)==0){
 				returnValue = false;
 			}

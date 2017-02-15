@@ -39,8 +39,10 @@ public class WordCountMaker {
 					 dowValue = ((DJObject)j).getOpeningValue(); 
 				}
 			}
-			int[] NNSingleArray = getNNSingleArray(DJDate, dowValue, i, uniqueWordsAllDays);
-			returnList.add(NNSingleArray);
+			if(dowValue != null){
+				int[] NNSingleArray = getNNSingleArray(DJDate, dowValue, i, uniqueWordsAllDays);
+				returnList.add(NNSingleArray);
+			}
 		}
 		return returnList;
 	}
