@@ -24,9 +24,9 @@ import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
 public class ReadDateRangeFromDBTest {
 	private List<DataObject> DJList;
-	private TableController DJController;
+	private DataManipulationController DJController;
 	private List<DataObject> NSList;
-	private TableController NSController;
+	private DataManipulationController NSController;
 	private static boolean setUp = false;
 	
 	CSVFileReader reader = new CSVFileReader();
@@ -54,13 +54,13 @@ public class ReadDateRangeFromDBTest {
 		DJList = DJconversion.stringtoDataObject(DJStringList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
-		DJController = new TableController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DJController = new DataManipulationController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	
 		ListStringArraysToNSObject NSconversion = new ListStringArraysToNSObject();
 		NSList = NSconversion.stringtoDataObject(NSStringList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
-		NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		NSController = new DataManipulationController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 
 	}
 	
@@ -107,6 +107,8 @@ public class ReadDateRangeFromDBTest {
 	@After
 	public void cleanUp() throws SQLException{
 		//comment out deleteAll() if you want to check data in omnipredictor tables
-		DJController.deleteAll();
+		DJController.deleteAll("DJOpening");
+		DJController.deleteAll("NewsHeadlines");
+
 	}
 }

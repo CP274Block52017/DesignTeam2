@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
-import preprocessing.DayStrings;
+import DataManipulation.DataObjectInterfaceClasses.DayStrings;
 
 /**
  * This class is used to convert data sets retrieved from the database

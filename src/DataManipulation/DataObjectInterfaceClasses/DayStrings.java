@@ -1,6 +1,11 @@
-package preprocessing;
+package DataManipulation.DataObjectInterfaceClasses;
 
-import DataManipulation.DataObjectInterfaceClasses.DataObject;
+/**
+ * This class implements DataObject to create a DayStrings object.
+ * This object is used to associate a date with all its' headlines 
+ * or unique words in our preprocessing for our database and neural network 
+ * training, depending on the stage of preprocessing.
+ */
 
 public class DayStrings implements DataObject{
 	private java.sql.Date date;

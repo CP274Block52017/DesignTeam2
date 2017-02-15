@@ -13,15 +13,15 @@ import org.junit.Test;
 import DataManipulation.*;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DateStringObject;
+import DataManipulation.DataObjectInterfaceClasses.DayStrings;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DayStringsReturnSetStrategy;
 import DataManipulation.ReturnSetStrategyInterfaceClasses.DateStringReturnSetStrategy;
 import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
-import preprocessing.DayStrings;
 
 public class NewsStoriesDatabaseTest {
 	private List<DataObject> NSList;
-	private TableController NSController;
+	private DataManipulationController NSController;
 	private static boolean setUp = false;
 	
 	public void initialize() throws SQLException{
@@ -45,7 +45,7 @@ public class NewsStoriesDatabaseTest {
 		NSList = conversion.stringtoDataObject(stringList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
-		NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		NSController = new DataManipulationController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ public class NewsStoriesDatabaseTest {
 	
 	@After
 	public void cleanUp() throws SQLException{
-		//comment out deleteAll() if you want to check data in omnipredictor tables
-		NSController.deleteAll();
+		//comment out deleteAll() if you want to check data in NewsHeadlines table
+		NSController.deleteAll("NewsHeadlines");
 	}
 }

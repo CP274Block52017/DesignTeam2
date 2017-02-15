@@ -8,6 +8,11 @@ import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 
+/**
+ * This class serves to split strings into individual words and is used by
+ * the PropositionRemover.
+ */
+
 public class StringTokenizer {
 	public String[] getTokens(String story) throws FileNotFoundException{
 		String[] returnTokens = null;
