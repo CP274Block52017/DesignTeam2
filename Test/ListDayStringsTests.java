@@ -18,9 +18,9 @@ public class ListDayStringsTests {
 	DayStringsReturnSetStrategy dateStringsReturn = new DayStringsReturnSetStrategy();
 	private static boolean setUp = false;
 	
-	public void initialize() throws SQLException{
+	public void initialize() throws SQLException, ParseException{
 		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUp();
+		initializer.setUpDatabase();
 	}
 	
 	@Before
@@ -33,10 +33,6 @@ public class ListDayStringsTests {
 		String localhostID = "8889";
 		String username = "root";
 		String password = "root";
-		CSVFileReader reader = new CSVFileReader();
-		List<String[]> stringList = reader.readFile("Data/RedditNews.csv");
-		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
-		NSList = conversion.stringtoDataObject(stringList);
 		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
 		NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
@@ -44,13 +40,12 @@ public class ListDayStringsTests {
 	
 	@Test
 	public void readAllHeadlinesNewestDate() throws SQLException, ParseException {
-		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
-		List<DayStrings> testList = dateStringsReturn.returnSetToDataObject(returnList);
+		List<DataObject> testList = dateStringsReturn.returnSetToDataObject(returnList);
 		
 		ArrayList<String> testarray = new ArrayList<String>();
-		for(DayStrings i : testList){
-			String [] dayStory = i.getStringArray();
+		for(DataObject i : testList){
+			String [] dayStory = ((DayStrings) i).getStringArray();
 			for(String j: dayStory){
 				testarray.add(j);
 			}
@@ -70,15 +65,14 @@ public class ListDayStringsTests {
 	
 	@Test
 	public void read3HeadlinesDayCompare1Day() throws SQLException, ParseException {
-		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-06-29", "2016-07-01");
-		List<DayStrings> testList = dateStringsReturn.returnSetToDataObject(returnList);
+		List<DataObject> testList = dateStringsReturn.returnSetToDataObject(returnList);
 		
 		ArrayList<String> testarray = new ArrayList<String>();
 		java.sql.Date wantedDate = java.sql.Date.valueOf("2016-06-29");
-		for(DayStrings i : testList){
+		for(DataObject i : testList){
 			if((i.getDate().compareTo(wantedDate)) == 0){
-				String [] dayStory = i.getStringArray();
+				String [] dayStory = ((DayStrings) i).getStringArray();
 				for(String j: dayStory){
 					testarray.add(j);
 				}
@@ -95,12 +89,5 @@ public class ListDayStringsTests {
 		}
 		String[] correct = correctarray.toArray(new String [correctarray.size()]);
 		assertArrayEquals(correct, test);
-	}
-	
-	
-	@After
-	public void cleanUp() throws SQLException{
-		//comment out deleteAll() if you want to check data in NewsHeadlines table
-		NSController.deleteAll("NewsHeadlines");
 	}
 }

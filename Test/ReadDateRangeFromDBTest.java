@@ -24,9 +24,9 @@ public class ReadDateRangeFromDBTest {
 	private List<String[]> NSStringList = reader.readFile("Data/RedditNews.csv");
 
 
-	public void initialize() throws SQLException{
+	public void initialize() throws SQLException, ParseException{
 		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUp();
+		initializer.setUpDatabase();
 	}
 	
 	@Before
@@ -56,7 +56,6 @@ public class ReadDateRangeFromDBTest {
 	
 	@Test
 	public void readFromLastThreeDaysReturnsOpeningCorrectValues() throws SQLException, ParseException {
-		DJController.writeListtoDB(DJList);
 		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening","2016-06-29" , "2016-07-01");
 		List<DataObject> dataObjectList = DJController.returnSetStrategy(returnList);
 
@@ -76,7 +75,6 @@ public class ReadDateRangeFromDBTest {
 	
 	@Test
 	public void readFromLastThreeDaysReturnsHeadlines() throws SQLException, ParseException {
-		NSController.writeListtoDB(NSList);
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-06-29" , "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		
@@ -92,13 +90,5 @@ public class ReadDateRangeFromDBTest {
 			correctList[i] = headline;
 		}
 		assertArrayEquals(correctList,testList);
-	}
-	
-	@After
-	public void cleanUp() throws SQLException{
-		//comment out deleteAll() if you want to check data in omnipredictor tables
-		DJController.deleteAll("DJOpening");
-		DJController.deleteAll("NewsHeadlines");
-
 	}
 }

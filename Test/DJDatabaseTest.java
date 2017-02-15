@@ -17,9 +17,9 @@ public class DJDatabaseTest {
 	private DatabaseController DJController;
 	private static boolean setUp = false;
 	
-	public void initialize() throws SQLException{
+	public void initialize() throws SQLException, ParseException{
 		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUp();
+		initializer.setUpDatabase();
 	}
 	
 	@Before
@@ -33,11 +33,6 @@ public class DJDatabaseTest {
 		String localhostID = "8889";
 		String username = "root";
 		String password = "root";
-		CSVFileReader reader = new CSVFileReader();
-		
-		List<String[]> stringList = reader.readFile("Data/DJIA_table.csv");
-		ListStringArraysToDJObject conversion = new ListStringArraysToDJObject();
-		DJList = conversion.stringtoDataObject(stringList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
 		DJController = new DatabaseController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
@@ -46,7 +41,6 @@ public class DJDatabaseTest {
 	
 	@Test
 	public void readWriteAllValuesCheckFirstDate() throws SQLException, ParseException {
-		DJController.writeListtoDB(DJList);
 		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = DJController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
@@ -55,7 +49,6 @@ public class DJDatabaseTest {
 	
 	@Test 
 	public void readWriteAllValuesCheckFirstOpeningValue() throws SQLException, ParseException {
-		DJController.writeListtoDB(DJList);
 		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = DJController.returnSetStrategy(returnList);
 		BigDecimal correctOpening = BigDecimal.valueOf(17924.24023); 
@@ -64,7 +57,6 @@ public class DJDatabaseTest {
 	
 	@Test 
 	public void readWriteAllValuesCheckLastDate() throws SQLException, ParseException {
-		DJController.writeListtoDB(DJList);
 		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening", "2016-05-27", "2016-05-27");
 		List<DataObject> dataObjectList = DJController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-05-27");
@@ -73,17 +65,9 @@ public class DJDatabaseTest {
 	
 	@Test 
 	public void readWriteAllValuesCheckLastOpeningValue() throws SQLException, ParseException {
-		DJController.writeListtoDB(DJList);
 		ResultSet returnList = DJController.retrieveDataFromDB("DJOpening","2016-05-27" , "2016-05-27");
 		List<DataObject> dataObjectList = DJController.returnSetStrategy(returnList);
 		BigDecimal correctOpening = BigDecimal.valueOf(17826.84961); 
 		assertEquals(correctOpening,((DJObject) dataObjectList.get(0)).getOpeningValue());
-	}
-	
-	@After
-	public void cleanUp() throws SQLException{
-		//comment out deleteAll() if you want to check data in DJOpening table
-		DJController.deleteAll("DJOpening");
-		
 	}
 }
