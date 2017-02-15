@@ -5,27 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.neuroph.core.data.DataSet;
 
-import dataBase.CSVFileReader;
-import dataBase.DJObject;
 import dataBase.DBConfig;
 import dataBase.DJReturnSetStrategy;
 import dataBase.DJWriteStrategy;
 import dataBase.DataObject;
 import dataBase.DatabaseController;
-import dataBase.DateStringReturnSetStrategy;
 import dataBase.NSWriteStrategy;
 import dataBase.DayStrings;
 import dataBase.DayStringsReturnSetStrategy;
-import dataBase.ListStringArraysToDJObject;
-import dataBase.ListStringArraysToNSObject;
 import dataBase.MySQLInitializer;
 import neuralNetwork.BackPropagatingConfigurationStrategy;
 import neuralNetwork.ConfigurationObject;
@@ -49,8 +42,7 @@ public class Controller {
 	}
 	
 	private static void setUp() throws SQLException, ParseException{
-		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUpDatabase();
+		MySQLInitializer.getInstance().setUpDatabase();
 	}
 	
 	private static void testAndDisplayResults(NeuralNetworkController neuralNetworkController, DataSet testSet){
