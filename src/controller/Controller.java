@@ -5,27 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.neuroph.core.data.DataSet;
 
-import dataBase.CSVFileReader;
-import dataBase.DJObject;
 import dataBase.DBConfig;
 import dataBase.DJReturnSetStrategy;
 import dataBase.DJWriteStrategy;
 import dataBase.DataObject;
 import dataBase.DatabaseController;
-import dataBase.DateStringReturnSetStrategy;
 import dataBase.NSWriteStrategy;
 import dataBase.DayStrings;
 import dataBase.DayStringsReturnSetStrategy;
-import dataBase.ListStringArraysToDJObject;
-import dataBase.ListStringArraysToNSObject;
 import dataBase.MySQLInitializer;
 import neuralNetwork.BackPropagatingConfigurationStrategy;
 import neuralNetwork.ConfigurationObject;
@@ -49,8 +42,7 @@ public class Controller {
 	}
 	
 	private static void setUp() throws SQLException, ParseException{
-		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUpDatabase();
+		MySQLInitializer.getInstance().setUpDatabase();
 	}
 	
 	private static void testAndDisplayResults(NeuralNetworkController neuralNetworkController, DataSet testSet){
@@ -104,26 +96,5 @@ public class Controller {
 		DatabaseController DJController = new DatabaseController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+DBConfig.localhostID+"/omnipredictor?user="+ DBConfig.username +"&password=" + DBConfig.password);
 		ResultSet resultSet = DJController.retrieveDataFromDB("DJOpening", fromDate, toDate);
 		return DJController.returnSetStrategy(resultSet);
-	}
-	
-	private static void printResultSet(ResultSet rs) throws SQLException{
-		ResultSetMetaData rsmd = rs.getMetaData();
-		   System.out.println("querying SELECT * FROM XXX");
-		   int columnsNumber = rsmd.getColumnCount();
-		   while (rs.next()) {
-		       for (int i = 1; i <= columnsNumber; i++) {
-		           if (i > 1) System.out.print(",  ");
-		           String columnValue = rs.getString(i);
-		           System.out.print(columnValue + " " + rsmd.getColumnName(i));
-		       }
-		       System.out.println("");
-		   }
-	}
-		   
-	private static void printDayStringsList(List<DayStrings> dayStringsList){
-		for(DayStrings i : dayStringsList){
-			System.out.println(i.getDate());
-			System.out.println(Arrays.toString(i.getStringArray()));
-		}
 	}
 }

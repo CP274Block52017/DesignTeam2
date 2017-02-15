@@ -14,14 +14,23 @@ import java.util.List;
  *
  */
 
-public class MySQLInitializer {
+public final class MySQLInitializer {
 
 	Connection databaseConnection = null;
 	
 	//localhostID, username, and password are set to default MySQL.These are set in DBConfig;
 	private String mySQLConnectionAddress = DBConfig.mySQLConnectionAddress;
 	private String databaseConnectionAddress = DBConfig.databaseConnectionAddress;
-
+	
+	public static  MySQLInitializer instance;
+	
+	public static  MySQLInitializer getInstance(){
+		if(instance == null){
+			instance = new MySQLInitializer();
+		}
+		return instance;
+	}
+	
 	public void setUpDatabase() throws SQLException, ParseException{
 		if(!DBExists()){
 			createDB();
