@@ -4,11 +4,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.util.List;
 
 
 /**
  * This class serves to create the database "Omnipredictor" if it does not already exist.
- * It initializes tables: "DJOpening" and "NewsHeadlines" a
+ * It initializes tables: "DJOpening" and "NewsHeadlines", reads the csv files, and writes them to the tables
  *
  */
 
@@ -20,12 +22,13 @@ public class MySQLInitializer {
 	private String mySQLConnectionAddress = DBConfig.mySQLConnectionAddress;
 	private String databaseConnectionAddress = DBConfig.databaseConnectionAddress;
 
-	public void setUp() throws SQLException{
+	public void setUpDatabase() throws SQLException, ParseException{
 		if(!DBExists()){
 			createDB();
 			createDJIATable();
 			createNewsStoriesTable();
-			}
+			readAndWriteCSVToDB();
+		}
 	}
 	
 	private boolean DBExists() throws SQLException{
@@ -69,5 +72,19 @@ public class MySQLInitializer {
 		query = "ALTER TABLE `NewsHeadlines` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1470;";
 		databaseStatement = databaseConnection.createStatement();
 		databaseStatement.execute(query);
+	}
+	
+	private void readAndWriteCSVToDB() throws SQLException, ParseException{
+		CSVFileReader reader = new CSVFileReader();
+		List<String[]> newsHeadlinesStrings = reader.readFile("Data/RedditNews.csv");
+		ListStringArraysToNSObject nsConverter = new ListStringArraysToNSObject();
+		List<DataObject> newsHeadlinesObjects = nsConverter.stringtoDataObject(newsHeadlinesStrings);
+		NSWriteStrategy nsWriter = new NSWriteStrategy();
+		nsWriter.writeToTable(newsHeadlinesObjects, databaseConnection);
+		List<String[]> djStrings = reader.readFile("Data/DJIA_table.csv");
+		ListStringArraysToDJObject djConverter = new ListStringArraysToDJObject();
+		List<DataObject> djObjects = djConverter.stringtoDataObject(djStrings);
+		DJWriteStrategy djWriter = new DJWriteStrategy();
+		djWriter.writeToTable(djObjects, databaseConnection);
 	}
 }

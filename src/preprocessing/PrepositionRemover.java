@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataBase.DataObject;
 import dataBase.DayStrings;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
@@ -20,8 +21,8 @@ import opennlp.tools.postag.POSTaggerME;
  */
 
 public class PrepositionRemover {
-	public List<DayStrings> removePrepositions(List<DayStrings> dayStoryList) throws FileNotFoundException{
-		List<DayStrings> dayStrings = convertToTokens(dayStoryList);
+	public List<DayStrings> removePrepositions(List<DataObject> nsDataObjectList) throws FileNotFoundException{
+		List<DayStrings> dayStrings = convertToTokens(nsDataObjectList);
 		List<DayStrings> returnList = new ArrayList<DayStrings>();
 		for(DayStrings i : dayStrings){
 			String[] tokenArray = i.getStringArray();
@@ -53,10 +54,10 @@ public class PrepositionRemover {
 		}
 	}
 	
-	private List<DayStrings> convertToTokens(List<DayStrings> dayStoryList) throws FileNotFoundException{
+	private List<DayStrings> convertToTokens(List<DataObject> nsDataObjectList) throws FileNotFoundException{
 		StringTokenizer tokenizer = new StringTokenizer();
 		List<DayStrings> returnList = new ArrayList<DayStrings>();
-		for(DayStrings i : dayStoryList){
+		for(DataObject i : nsDataObjectList){
 			String allStories = concatStoriesFromDay(i);
 			String[] tokens = tokenizer.getTokens(allStories);
 			DayStrings newDayStrings = new DayStrings(i.getDate(),tokens);
@@ -65,8 +66,8 @@ public class PrepositionRemover {
 		return returnList;
 	}
 	
-	private String concatStoriesFromDay(DayStrings dayStory){
-		String[] stories = dayStory.getStringArray();
+	private String concatStoriesFromDay(DataObject i){
+		String[] stories = ((DayStrings) i).getStringArray();
 		String allStories = "";
 		for(String j : stories){
 			allStories+=j+" ";

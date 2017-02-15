@@ -25,11 +25,6 @@ public class DatabaseController {
 		this.databaseConnection = DriverManager.getConnection(databaseAddress);
 	}
 	
-	public void initializeDB() throws SQLException{
-		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUp();		
-	}
-	
 	public void writeListtoDB(List<DataObject> list) throws SQLException, ParseException{
 		writeStrategy.writeToTable(list,databaseConnection);
 	}

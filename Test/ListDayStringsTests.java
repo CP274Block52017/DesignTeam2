@@ -37,7 +37,7 @@ public class ListDayStringsTests {
 		List<String[]> stringList = reader.readFile("Data/RedditNews.csv");
 		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
 		NSList = conversion.stringtoDataObject(stringList);
-		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
+		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
 		NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	}

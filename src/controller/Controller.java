@@ -1,6 +1,9 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -11,12 +14,13 @@ import java.util.List;
 import org.neuroph.core.data.DataSet;
 
 import dataBase.CSVFileReader;
+import dataBase.DBConfig;
 import dataBase.DJReturnSetStrategy;
 import dataBase.DJWriteStrategy;
 import dataBase.DataObject;
 import dataBase.DatabaseController;
 import dataBase.DateStringReturnSetStrategy;
-import dataBase.DateStringWriteStrategy;
+import dataBase.NSWriteStrategy;
 import dataBase.DayStrings;
 import dataBase.DayStringsReturnSetStrategy;
 import dataBase.ListStringArraysToDJObject;
@@ -30,26 +34,22 @@ import neuralNetwork.NeuralNetworkMetrics;
 import preprocessing.PreprocessingController;
 
 public class Controller {
-	public static void main(String [] args) throws SQLException, ParseException, FileNotFoundException{
-		CSVFileReader reader = new CSVFileReader();
-		List<String[]> redditNewsList = reader.readFile("Data/RedditNews.csv");
-		List<String[]> DJList = reader.readFile("Data/DJIA_table.csv");
-		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUp();
-		String localhostID = "8889";
-		String username = "root";
-		String password = "root";
-		ListStringArraysToDJObject djConverter = new ListStringArraysToDJObject();
-		List<DataObject> DJObject = djConverter.stringtoDataObject(DJList);
-		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
-		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
-		DatabaseController DJController = new DatabaseController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
-		DJController.writeListtoDB(DJObject);
+	public static void main(String [] args) throws SQLException, ParseException, IOException{
+		setUp();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Enter start date in format yyyy-mm-dd");
+        String fromDate = br.readLine();
+        System.out.println("Enter end date in format yyyy-mm-dd");
+        String toDate = br.readLine();
+        DataSet[] dataSets = getDataSets(fromDate,toDate);
+        NeuralNetworkController neuralNetworkController = buildNN(dataSets[0]);
+        neuralNetworkController.train(dataSets[0]);
+        testAndDisplayResults(neuralNetworkController, dataSets[1]);
+        /*NeuralNetworkController neuralNetworkController = buildAndTrainNNOnDataFromRange(fromDate,toDate);
+        
 		ListStringArraysToNSObject nsConverter = new ListStringArraysToNSObject();
 		List<DataObject> NSList = nsConverter.stringtoDataObject(redditNewsList);
-		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
-		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
-		DatabaseController NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		
 		NSController.writeListtoDB(NSList);
 		ResultSet nsReturnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-06-28", "2016-07-01");
 		DayStringsReturnSetStrategy dateStringsReturn = new DayStringsReturnSetStrategy();
@@ -80,6 +80,55 @@ public class Controller {
 		tester.printResults();
 		//NSController.deleteAll("DJOpening");
 		//NSController.deleteAll("NewsHeadlines");
+*/	}
+	
+	private static void setUp() throws SQLException, ParseException{
+		MySQLInitializer initializer = new MySQLInitializer();
+		initializer.setUpDatabase();
+	}
+	
+	private static void testAndDisplayResults(NeuralNetworkController neuralNetworkController, DataSet testSet){
+		NeuralNetworkMetrics tester = new NeuralNetworkMetrics(neuralNetworkController);
+		tester.setMetrics(testSet);
+		tester.printResults();
+	}
+	
+	private static DataSet[] getDataSets(String fromDate,String toDate) throws SQLException, FileNotFoundException, ParseException{
+		List<DataObject> nsDataObjectList = getNewsFromTable(fromDate,toDate);
+		List<int[]> processedNSData = processNSObjectList(nsDataObjectList);
+		return getDataSets(processedNSData);
+	}
+	
+	private static NeuralNetworkController buildNN(DataSet trainingSet) throws SQLException, FileNotFoundException, ParseException{
+		BackPropagatingConfigurationStrategy backPropConfigStrategy = new BackPropagatingConfigurationStrategy();
+    	NeuralNetworkController neuralNetworkController = new NeuralNetworkController(backPropConfigStrategy);
+    	return configureNNC(neuralNetworkController,trainingSet);
+	}
+	
+	private static NeuralNetworkController configureNNC(NeuralNetworkController neuralNetworkController,DataSet trainingSet){
+		ConfigurationObject configurationObject = new ConfigurationObject(trainingSet.getInputSize(), trainingSet.getOutputSize(), .5, .001, 5050);
+		neuralNetworkController.configure(configurationObject);
+		return neuralNetworkController;
+	}
+	
+	private static DataSet[] getDataSets(List<int[]> processedNSData){
+		NeuralNetworkDataFormatter dataFormatter = new NeuralNetworkDataFormatter();
+		DataSet dataSet = dataFormatter.toDataSet(processedNSData);
+		return dataFormatter.getTrainingandTest(dataSet, 70, 30);
+	}
+	
+	private static List<int[]> processNSObjectList(List<DataObject> nsDataObjectList) throws FileNotFoundException, SQLException, ParseException{
+		PreprocessingController preprocessingController = new PreprocessingController();
+		List<DayStrings> removedPrepsList = preprocessingController.removePrepositions(nsDataObjectList);
+		return preprocessingController.getNNList(removedPrepsList);
+	}
+	
+	private static List<DataObject> getNewsFromTable(String fromDate, String toDate) throws SQLException{
+		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
+		DayStringsReturnSetStrategy NSReturnStrategy = new DayStringsReturnSetStrategy();
+		DatabaseController NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+DBConfig.localhostID+"/omnipredictor?user="+ DBConfig.username +"&password=" + DBConfig.password);
+		ResultSet resultSet = NSController.retrieveDataFromDB("NewsHeadlines", fromDate, toDate);
+		return NSController.returnSetStrategy(resultSet);
 	}
 	
 	private static void printResultSet(ResultSet rs) throws SQLException{
