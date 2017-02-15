@@ -3,7 +3,11 @@ package NeuralNetwork;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 
-//Object for testing efficiency and accurateness of NN. Good so the user can know the accuracy of the model.
+/**
+ * Object for testing efficiency and accurateness of NN. For statistical model information for user and metrics for model
+ * reconfiguration for programmer. 
+ *
+ */
 public class NeuralNetworkMetrics {
 	
 	NeuralNetworkController neuralNetworkController;

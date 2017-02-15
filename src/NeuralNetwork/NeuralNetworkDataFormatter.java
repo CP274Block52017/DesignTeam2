@@ -2,12 +2,17 @@ package NeuralNetwork;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.util.data.norm.MaxNormalizer;
 import org.neuroph.util.data.norm.Normalizer;
 
+/**
+ * Takes in the list of strings from the preprocessing controller and formats it for input into the neural network i.e. converts
+ * a list of strings into a data set object with a binary dow representation.
+ */
 public class NeuralNetworkDataFormatter {
 	
 	//Output is 1 item (DJIA)
@@ -18,7 +23,7 @@ public class NeuralNetworkDataFormatter {
 	//'set' input is (DJIA,Month,Day,Year,word counts.........) for each day. 
 	//Takes in 'set' and puts it into DataSet object for ANN. 
 	//Makes input Month, Day, Year, word counts and output the DJIA in binary form in array of 16 length.
-	public DataSet toDataSet(ArrayList<int[]> set) {
+	public DataSet toDataSet(List<int[]> set) {
 		DataSet d = new DataSet(set.get(0).length - OUTPUT_SIZE, OUTPUT_SIZE * BINARY_SIZE);
 		for(int[] currentRow : set) {
 			int[] input = Arrays.copyOfRange(currentRow, 1,currentRow.length );
@@ -41,6 +46,13 @@ public class NeuralNetworkDataFormatter {
 		}
 		return output;
 	}
+	
+	//Specify percentages of data used for training and test DataSets, respectively, return array containing both	
+		public DataSet[] getTrainingandTest(DataSet dataSet, int TrainingSize, int TestSize) {
+			dataSet.shuffle(); //Shuffles data to ensure that the test and training data vary. 
+			DataSet[] trainingAndTestSet = dataSet.createTrainingAndTestSubsets(70, 30);
+			return trainingAndTestSet;
+		}
 	
 
 }

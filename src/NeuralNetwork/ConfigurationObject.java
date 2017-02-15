@@ -1,6 +1,11 @@
 package NeuralNetwork;
 
 
+/**
+ * This object holds all the values for the instantiation of a strategy so that a large number of parameters don't have to be passed into
+ * configure. All are standard neural network configuration variables.
+ *
+ */
 public class ConfigurationObject {
 	public int inputSize;
 	public int outputSize;
