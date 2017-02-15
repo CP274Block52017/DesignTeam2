@@ -24,9 +24,9 @@ import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
 public class ReadDateRangeFromDBTest {
 	private List<DataObject> DJList;
-	private DataManipulationController DJController;
+	private DatabaseController DJController;
 	private List<DataObject> NSList;
-	private DataManipulationController NSController;
+	private DatabaseController NSController;
 	private static boolean setUp = false;
 	
 	CSVFileReader reader = new CSVFileReader();
@@ -54,13 +54,13 @@ public class ReadDateRangeFromDBTest {
 		DJList = DJconversion.stringtoDataObject(DJStringList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
-		DJController = new DataManipulationController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DJController = new DatabaseController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	
 		ListStringArraysToNSObject NSconversion = new ListStringArraysToNSObject();
 		NSList = NSconversion.stringtoDataObject(NSStringList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
-		NSController = new DataManipulationController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 
 	}
 	

@@ -21,7 +21,7 @@ import DataManipulation.WriteStrategyInterfaceClasses.DateStringWriteStrategy;
 
 public class NewsStoriesDatabaseTest {
 	private List<DataObject> NSList;
-	private DataManipulationController NSController;
+	private DatabaseController NSController;
 	private static boolean setUp = false;
 	
 	public void initialize() throws SQLException{
@@ -45,7 +45,7 @@ public class NewsStoriesDatabaseTest {
 		NSList = conversion.stringtoDataObject(stringList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
-		NSController = new DataManipulationController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	}
 	
 	@Test

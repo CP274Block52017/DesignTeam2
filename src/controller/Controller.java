@@ -12,7 +12,7 @@ import org.neuroph.core.data.DataSet;
 
 import DataManipulation.CSVFileReader;
 import DataManipulation.MySQLInitializer;
-import DataManipulation.DataManipulationController;
+import DataManipulation.DatabaseController;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.DataObjectInterfaceClasses.DayStrings;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToDJObject;
@@ -43,13 +43,13 @@ public class Controller {
 		List<DataObject> DJObject = djConverter.stringtoDataObject(DJList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
-		DataManipulationController DJController = new DataManipulationController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DatabaseController DJController = new DatabaseController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 		DJController.writeListtoDB(DJObject);
 		ListStringArraysToNSObject nsConverter = new ListStringArraysToNSObject();
 		List<DataObject> NSList = nsConverter.stringtoDataObject(redditNewsList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
-		DataManipulationController NSController = new DataManipulationController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DatabaseController NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 		NSController.writeListtoDB(NSList);
 		ResultSet nsReturnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-06-28", "2016-07-01");
 		DayStringsReturnSetStrategy dateStringsReturn = new DayStringsReturnSetStrategy();
@@ -57,8 +57,8 @@ public class Controller {
 		//printResultSet(nsReturnList);
 		List<DayStrings> nsDayStringsList = dateStringsReturn.returnSetToDataObject(nsReturnList);
 		PreprocessingController preprocessingController = new PreprocessingController();
-		System.out.println("day strings list");
-		printDayStringsList(nsDayStringsList);
+		//System.out.println("day strings list");
+		//printDayStringsList(nsDayStringsList);
 		List<DayStrings> removedPrepsList = preprocessingController.removePrepositions(nsDayStringsList);
 		//System.out.println("removed prep list");
 		//printDayStringsList(removedPrepsList);
@@ -78,8 +78,8 @@ public class Controller {
     	NeuralNetworkMetrics tester = new NeuralNetworkMetrics(neuralNetworkController);
 		tester.setMetrics(trainingAndTestSet[1]);
 		tester.printResults();
-		NSController.deleteAll("DJOpening");
-		NSController.deleteAll("NewsHeadlines");
+		//NSController.deleteAll("DJOpening");
+		//NSController.deleteAll("NewsHeadlines");
 	}
 	
 	private static void printResultSet(ResultSet rs) throws SQLException{

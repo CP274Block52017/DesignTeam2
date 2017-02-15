@@ -20,7 +20,7 @@ import DataManipulation.WriteStrategyInterfaceClasses.DJWriteStrategy;
 
 public class DJDatabaseTest {
 	private List<DataObject> DJList;
-	private DataManipulationController DJController;
+	private DatabaseController DJController;
 	private static boolean setUp = false;
 	
 	public void initialize() throws SQLException{
@@ -46,7 +46,7 @@ public class DJDatabaseTest {
 		DJList = conversion.stringtoDataObject(stringList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
-		DJController = new DataManipulationController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DJController = new DatabaseController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 
 	}
 	

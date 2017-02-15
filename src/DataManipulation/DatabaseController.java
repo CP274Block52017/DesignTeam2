@@ -18,15 +18,20 @@ import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy;
  * This implements a Strategy design pattern using a WriteStrategy interface and ReturnSetStrategy interface.
  *
  */
-public class DataManipulationController {
+public class DatabaseController {
 	private Connection databaseConnection;
 	private WriteStrategy writeStrategy;
 	private ReturnSetStrategy returnSetStrategy;
 	
-	public DataManipulationController(WriteStrategy writeStrategy, ReturnSetStrategy returnSetStrategy, String databaseAddress) throws SQLException {
+	public DatabaseController(WriteStrategy writeStrategy, ReturnSetStrategy returnSetStrategy, String databaseAddress) throws SQLException {
 		this.writeStrategy = writeStrategy;
 		this.returnSetStrategy = returnSetStrategy;
 		this.databaseConnection = DriverManager.getConnection(databaseAddress);
+	}
+	
+	public void initializeDB() throws SQLException{
+		MySQLInitializer initializer = new MySQLInitializer();
+		initializer.setUp();		
 	}
 	
 	public void writeListtoDB(List<DataObject> list) throws SQLException, ParseException{
@@ -45,6 +50,7 @@ public class DataManipulationController {
 	}
 	
 	public void deleteAll(String tableName) throws SQLException{
+		System.out.println("TABLE NAME : "+tableName);
 		Statement databaseStatement = databaseConnection.createStatement();
 		String deleteCommand = "DELETE FROM " + tableName;
 		databaseStatement.execute(deleteCommand);
