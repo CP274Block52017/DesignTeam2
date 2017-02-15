@@ -16,12 +16,9 @@ public class MySQLInitializer {
 
 	Connection databaseConnection = null;
 	
-	//localhostID, username, and password are set to default MySQL. There will be a separate class to do this. 
-	private String localhostID = "8889";
-	private String username = "root";
-	private String password = "root";
-	private String mySQLConnectionAddress = "jdbc:mysql://localhost:" + localhostID + "/?user=" + username + "&password=" + password;
-	private String databaseConnectionAddress = "jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password;
+	//localhostID, username, and password are set to default MySQL.These are set in DBConfig;
+	private String mySQLConnectionAddress = DBConfig.mySQLConnectionAddress;
+	private String databaseConnectionAddress = DBConfig.databaseConnectionAddress;
 
 	public void setUp() throws SQLException{
 		if(!DBExists()){
