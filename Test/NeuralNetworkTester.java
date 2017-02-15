@@ -56,6 +56,7 @@ public class NeuralNetworkTester {
 		assertTrue(standdevWorking);
 	}
 	
+	@Test
 	public void getPercentAccWorkingCorrect() {
 		NeuralNetworkController neuralNetworkController = getController();
 		neuralNetworkController.train(trainingAndTestSet[0]);
@@ -68,6 +69,7 @@ public class NeuralNetworkTester {
 		assertTrue(getPercentAccWorking);
 	}
 	
+	@Test
 	public void getPercentOverWorkingisCorrect() {
 		NeuralNetworkController neuralNetworkController = getController();
 		neuralNetworkController.train(trainingAndTestSet[0]);
@@ -80,6 +82,7 @@ public class NeuralNetworkTester {
 		assertTrue(getPercentOverWorking);
 	}
 	
+	@Test
 	public void percentUnderWorkingisCorrect() {
 		NeuralNetworkController neuralNetworkController = getController();
 		neuralNetworkController.train(trainingAndTestSet[0]);
