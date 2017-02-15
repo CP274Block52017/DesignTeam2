@@ -2,17 +2,11 @@ package preprocessing;
 
 import java.util.List;
 
-import dataBase.CSVFileReader;
 import dataBase.DJObject;
-import dataBase.DJReturnSetStrategy;
-import dataBase.DJWriteStrategy;
 import dataBase.DataObject;
-import dataBase.DatabaseController;
 import dataBase.DayStrings;
-import dataBase.ListStringArraysToDJObject;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
