@@ -24,9 +24,9 @@ public class DayStringsReturnSetStrategy {
 			DateStringObject rowObject = new DateStringObject(date,headline);
 			dataList.add(rowObject);
 		}
-		
 		List<DayStrings> returnList = new ArrayList<DayStrings>();
 		for(DateStringObject i : dataList){
+			System.out.println(returnList.size());
 			java.sql.Date date = i.getDate();
 			if(listDoesNotContainDate(returnList,date)){
 				List<String> stringList = new ArrayList<String>();
@@ -42,43 +42,12 @@ public class DayStringsReturnSetStrategy {
 			}
 		}
 		return returnList;
-		/*NSReturnSetStrategy dataObjectConverter = new NSReturnSetStrategy();
-		List<DataObject> dataList = dataObjectConverter.returnSetToDataObject(resultSet);
-		/*for(int i = 0; i < dataList.size(); i++){
-			System.out.println(((DateStringObject) dataList.get(i)).getString());
-		}
-		List<DayStrings> dayHeadlines = new ArrayList<DayStrings>(); 		
-		List<java.sql.Date> dateInReturnList = new ArrayList<java.sql.Date>();
-		int newsHeadlinesPerDay = 25;
-		int headlineNumOnDay = 0;
-		int currentHeadline = 0;
-		currentHeadline += headlineNumOnDay;
-		for(int i =0; i < dataList.size(); i += newsHeadlinesPerDay){
-			java.sql.Date date = ((DateStringObject) dataList.get(i)).getDate();
-			//System.out.println(((DateStringObject) dataList.get(i)).getString());
-			if(!dateInReturnList.contains(date)){
-				dateInReturnList.add(date);
-				String[] dayheadlines = new String [newsHeadlinesPerDay];
-				for(headlineNumOnDay = 0; headlineNumOnDay < newsHeadlinesPerDay; headlineNumOnDay++){
-					//System.out.println(headlineNumOnDay);
-					String headline = ((DateStringObject) dataList.get(currentHeadline + headlineNumOnDay)).getString();
-					System.out.println(headline);
-					dayheadlines[headlineNumOnDay] = headline; 
-					if(dayheadlines.length == newsHeadlinesPerDay){
-						DayStrings rowObject = new DayStrings(date, dayheadlines);
-						dayHeadlines.add(rowObject);
-						currentHeadline = i * newsHeadlinesPerDay;
-					}
-				}
-			}
-		}
-		return dayHeadlines;*/
 	}
 	
 	private boolean listDoesNotContainDate(List<DayStrings> dayStrings, java.sql.Date date){
 		boolean returnValue = true;
 		for(DayStrings i : dayStrings){
-			if(i.getDate() == date){
+			if(i.getDate().compareTo(date)==0){
 				returnValue = false;
 			}
 		}

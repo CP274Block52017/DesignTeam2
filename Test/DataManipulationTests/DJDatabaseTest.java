@@ -46,7 +46,7 @@ public class DJDatabaseTest {
 		DJList = conversion.stringtoDataObject(stringList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
-		DJController = new TableController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		TableController DJController = new TableController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 	}
 	
 	@Test
