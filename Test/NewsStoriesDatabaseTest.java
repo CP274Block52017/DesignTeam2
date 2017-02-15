@@ -16,9 +16,9 @@ public class NewsStoriesDatabaseTest {
 	private DatabaseController NSController;
 	private static boolean setUp = false;
 	
-	public void initialize() throws SQLException{
+	public void initialize() throws SQLException, ParseException{
 		MySQLInitializer initializer = new MySQLInitializer();
-		initializer.setUp();
+		initializer.setUpDatabase();
 	}
 	
 	@Before
@@ -31,10 +31,6 @@ public class NewsStoriesDatabaseTest {
 		String localhostID = "8889";
 		String username = "root";
 		String password = "root";
-		CSVFileReader reader = new CSVFileReader();
-		List<String[]> stringList = reader.readFile("Data/RedditNews.csv");
-		ListStringArraysToNSObject conversion = new ListStringArraysToNSObject();
-		NSList = conversion.stringtoDataObject(stringList);
 		NSWriteStrategy NSWriteStrategy = new NSWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
 		NSController = new DatabaseController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
@@ -42,7 +38,7 @@ public class NewsStoriesDatabaseTest {
 	
 	@Test
 	public void readWriteAllValuesCheckFirstDate() throws SQLException, ParseException {
-		NSController.writeListtoDB(NSList);
+		
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
@@ -51,7 +47,7 @@ public class NewsStoriesDatabaseTest {
 	
 	@Test 
 	public void readWriteAllValuesCheckFirstHeadline() throws SQLException, ParseException {
-		NSController.writeListtoDB(NSList);
+		
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		String correctHeadline = "A 117-year-old woman in Mexico City finally received her birth certificate, and died a few hours later. Trinidad Alvarez Lira had waited years for proof that she had been born in 1898."; 
@@ -60,7 +56,7 @@ public class NewsStoriesDatabaseTest {
 	
 	@Test 
 	public void readWriteAllValuesCheckTwentyFiveDate() throws SQLException, ParseException {
-		NSController.writeListtoDB(NSList);
+		
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		java.sql.Date correctDate = java.sql.Date.valueOf("2016-07-01");
@@ -69,17 +65,10 @@ public class NewsStoriesDatabaseTest {
 	
 	@Test 
 	public void readWriteAllValuesCheckTwentyFiveHeadline() throws SQLException, ParseException {
-		NSController.writeListtoDB(NSList);
+		
 		ResultSet returnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		List<DataObject> dataObjectList = NSController.returnSetStrategy(returnList);
 		String correctHeadline = "Ozone layer hole seems to be healing - US &amp; UK team shows it's shrunk &amp; may slowly recover. \"If you had to have an ozone hole anywhere in the world, it'd be Antarctica because its not teeming with life. It showed us if we didnt back off with these chemicals, wed have a crisis.\"";
 		assertEquals(correctHeadline,((DateStringObject) dataObjectList.get(24)).getString());
-	}
-	
-	
-	@After
-	public void cleanUp() throws SQLException{
-		//comment out deleteAll() if you want to check data in NewsHeadlines table
-		NSController.deleteAll("NewsHeadlines");
 	}
 }

@@ -7,12 +7,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import dataBase.DataObject;
 import dataBase.DayStrings;
 import preprocessing.*;
 
 public class PPTest {
-	private List<DayStrings> dayStoriesList = new ArrayList<DayStrings>();
-	private List<DayStrings> singleStoryDay = new ArrayList<DayStrings>();
+	private List<DataObject> dayStoriesList = new ArrayList<DataObject>();
+	private List<DataObject> singleStoryDay = new ArrayList<DataObject>();
 
 	private PreprocessingController preprocessingController = new PreprocessingController();
 
@@ -42,14 +43,14 @@ public class PPTest {
 	
 	@Test
 	public void dayStoryObjectCreatedForDayOneContainsCorrectStoryAtPositionOne() {
-		DayStrings firstDayStories = dayStoriesList.get(0);
+		DayStrings firstDayStories = (DayStrings) dayStoriesList.get(0);
 		String[] storyList = firstDayStories.getStringArray();
 		assertEquals(storyList[0],"IMF chief backs Athens as permanent Olympic host");
 	}
 	
 	@Test
 	public void dayStoryObjectCreatedForDayOneContainsCorrectDate() {
-		DayStrings firstDayStories = dayStoriesList.get(0);
+		DayStrings firstDayStories = (DayStrings) dayStoriesList.get(0);
 		java.sql.Date date = firstDayStories.getDate();
 		String correctDateString = "2016-07-01";
 		java.sql.Date correctDate = java.sql.Date.valueOf(correctDateString);

@@ -16,9 +16,9 @@ import dataBase.ListStringArraysToDJObject;
 import preprocessing.*;
 
 public class GetWordCountsTest {
-	private List<DayStrings> dayStoriesList = new ArrayList<DayStrings>();
-	private List<DayStrings> multipleDaysStories = new ArrayList<DayStrings>();
-	private List<DayStrings> repeatedStories = new ArrayList<DayStrings>();
+	private List<DataObject> dayStoriesList = new ArrayList<DataObject>();
+	private List<DataObject> multipleDaysStories = new ArrayList<DataObject>();
+	private List<DataObject> repeatedStories = new ArrayList<DataObject>();
 	private List<DataObject> DJList;
 	private PreprocessingController preprocessingController = new PreprocessingController();
 
