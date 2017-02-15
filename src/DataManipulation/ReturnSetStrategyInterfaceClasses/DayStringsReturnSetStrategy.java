@@ -31,7 +31,7 @@ public class DayStringsReturnSetStrategy {
 			if(listDoesNotContainDate(returnList,date)){
 				List<String> stringList = new ArrayList<String>();
 				for(DateStringObject j : dataList){
-					if(j.getDate() == date){
+					if(j.getDate().compareTo(date)==0){
 						stringList.add(j.getString());
 					}
 				}

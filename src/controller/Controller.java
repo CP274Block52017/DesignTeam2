@@ -12,7 +12,7 @@ import org.neuroph.core.data.DataSet;
 
 import DataManipulation.CSVFileReader;
 import DataManipulation.MySQLInitializer;
-import DataManipulation.TableController;
+import DataManipulation.DataManipulationController;
 import DataManipulation.DataObjectInterfaceClasses.DataObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToDJObject;
 import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToNSObject;
@@ -43,13 +43,13 @@ public class Controller {
 		List<DataObject> DJObject = djConverter.stringtoDataObject(DJList);
 		DJWriteStrategy DJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy DJReturnStrategy = new DJReturnSetStrategy();
-		TableController DJController = new TableController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DataManipulationController DJController = new DataManipulationController(DJWriteStrategy, DJReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 		DJController.writeListtoDB(DJObject);
 		ListStringArraysToNSObject nsConverter = new ListStringArraysToNSObject();
 		List<DataObject> NSList = nsConverter.stringtoDataObject(redditNewsList);
 		DateStringWriteStrategy NSWriteStrategy = new DateStringWriteStrategy();
 		DateStringReturnSetStrategy NSReturnStrategy = new DateStringReturnSetStrategy();
-		TableController NSController = new TableController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DataManipulationController NSController = new DataManipulationController(NSWriteStrategy, NSReturnStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 		NSController.writeListtoDB(NSList);
 		ResultSet nsReturnList = NSController.retrieveDataFromDB("NewsHeadlines", "2016-07-01", "2016-07-01");
 		DayStringsReturnSetStrategy dateStringsReturn = new DayStringsReturnSetStrategy();
