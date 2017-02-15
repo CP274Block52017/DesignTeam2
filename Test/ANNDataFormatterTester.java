@@ -6,8 +6,8 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.neuroph.core.data.DataSet;
 
-import NeuralNetwork.NeuralNetworkDataFormatter;
 import junit.framework.Assert;
+import neuralNetwork.NeuralNetworkDataFormatter;
 
 public class ANNDataFormatterTester {
 

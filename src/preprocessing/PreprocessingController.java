@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
-import DataManipulation.DataObjectInterfaceClasses.DayStrings;
+import dataBase.DayStrings;
 
 /**
  * This class controls the flow of the preprocessing from removing prepositions to returning a list of 

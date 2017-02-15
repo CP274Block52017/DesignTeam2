@@ -6,11 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.neuroph.core.data.DataSet;
 
-import NeuralNetwork.dataFormatter;
-import NeuralNetwork.NeuralNetworkMetrics;
-import NeuralNetwork.BackPropagatingConfigurationStrategy;
-import NeuralNetwork.ConfigurationObject;
-import NeuralNetwork.NeuralNetworkController;
+import neuralNetwork.BackPropagatingConfigurationStrategy;
+import neuralNetwork.ConfigurationObject;
+import neuralNetwork.NeuralNetworkController;
+import neuralNetwork.NeuralNetworkMetrics;
+import neuralNetwork.dataFormatter;
 
 public class NeuralNetworkTester {
 	DataSet[] trainingAndTestSet;

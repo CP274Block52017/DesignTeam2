@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import DataManipulation.DataObjectInterfaceClasses.DayStrings;
+import dataBase.DayStrings;
 import preprocessing.*;
 
 public class PPTest {

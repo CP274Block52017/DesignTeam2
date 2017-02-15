@@ -2,14 +2,14 @@ package preprocessing;
 
 import java.util.List;
 
-import DataManipulation.CSVFileReader;
-import DataManipulation.DataManipulationController;
-import DataManipulation.DataObjectInterfaceClasses.DJObject;
-import DataManipulation.DataObjectInterfaceClasses.DataObject;
-import DataManipulation.DataObjectInterfaceClasses.DayStrings;
-import DataManipulation.ListStringArraystoDataObjectInterfaceClasses.ListStringArraysToDJObject;
-import DataManipulation.ReturnSetStrategyInterfaceClasses.DJReturnSetStrategy;
-import DataManipulation.WriteStrategyInterfaceClasses.DJWriteStrategy;
+import dataBase.CSVFileReader;
+import dataBase.DJObject;
+import dataBase.DJReturnSetStrategy;
+import dataBase.DJWriteStrategy;
+import dataBase.DataObject;
+import dataBase.DatabaseController;
+import dataBase.DayStrings;
+import dataBase.ListStringArraysToDJObject;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -78,7 +78,7 @@ public class WordCountMaker {
 		String password = "root";
 		DJWriteStrategy dJWriteStrategy = new DJWriteStrategy();
 		DJReturnSetStrategy dJReturnSetStrategy = new DJReturnSetStrategy();
-		DataManipulationController dJController = new DataManipulationController(dJWriteStrategy, dJReturnSetStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
+		DatabaseController dJController = new DatabaseController(dJWriteStrategy, dJReturnSetStrategy,"jdbc:mysql://localhost:"+localhostID+"/omnipredictor?user="+ username +"&password=" + password);
 		dJController.writeListtoDB(DJList);
 		ResultSet returnList = dJController.retrieveDataFromDB("DJOpening", date, date.toString());
 		List<DataObject> dataObjectList = dJController.returnSetStrategy(returnList);
