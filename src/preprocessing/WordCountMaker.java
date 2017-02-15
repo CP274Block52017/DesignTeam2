@@ -83,7 +83,7 @@ public class WordCountMaker {
 		ResultSet returnList = dJController.retrieveDataFromDB("DJOpening", date, date.toString());
 		List<DataObject> dataObjectList = dJController.returnSetStrategy(returnList);
 		BigDecimal dowValue = ((DJObject)dataObjectList.get(0)).getOpeningValue();
-		dJController.deleteAll();
+		dJController.deleteAll("DJOpening");
 		return dowValue.intValue();
 	}
 	

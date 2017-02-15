@@ -15,12 +15,12 @@ import DataManipulation.WriteStrategyInterfaceClasses.WriteStrategy;
 /**
  * This class serves to write the data sets to database tables, retrieve information from the database,
  * convert retrieve information into data objects and contains a method to delete data sets from the database.
- * This implements a compositional design pattern using a WriteStrategy interface and ReturnSetStrategy interface.
+ * This implements a Strategy design pattern using a WriteStrategy interface and ReturnSetStrategy interface.
  *
  */
 public class DataManipulationController {
-	private WriteStrategy writeStrategy;
 	private Connection databaseConnection;
+	private WriteStrategy writeStrategy;
 	private ReturnSetStrategy returnSetStrategy;
 	
 	public DataManipulationController(WriteStrategy writeStrategy, ReturnSetStrategy returnSetStrategy, String databaseAddress) throws SQLException {
@@ -33,11 +33,6 @@ public class DataManipulationController {
 		writeStrategy.writeToTable(list,databaseConnection);
 	}
 	
-	public List<DataObject> returnSetStrategy(ResultSet resultSet) throws SQLException {
-		return returnSetStrategy.returnSetToDataObject(resultSet);
-	}
-	
-	//TODO new retrieve database interface for future interfaces
 	public ResultSet retrieveDataFromDB(String tableName, String startDate, String endDate)  throws SQLException{
 		Statement databaseStatement = databaseConnection.createStatement();
 		String selectCommand = "SELECT * FROM "+ tableName +" WHERE date >= \""+ startDate +"\" AND date <= \""+ endDate +"\";";
@@ -45,15 +40,13 @@ public class DataManipulationController {
 		return resultSet;
 	}
 	
-	public void deleteAll() throws SQLException{
+	public List<DataObject> returnSetStrategy(ResultSet resultSet) throws SQLException {
+		return returnSetStrategy.returnSetToDataObject(resultSet);
+	}
+	
+	public void deleteAll(String tableName) throws SQLException{
 		Statement databaseStatement = databaseConnection.createStatement();
-		String deleteCommand = "DELETE FROM DJOpening";
-		databaseStatement.execute(deleteCommand);
-		databaseStatement = databaseConnection.createStatement();
-		deleteCommand = "DELETE FROM NewsHeadlines";
-		databaseStatement.execute(deleteCommand);
-		databaseStatement = databaseConnection.createStatement();
-		deleteCommand = "DELETE FROM WordCount";
+		String deleteCommand = "DELETE FROM " + tableName;
 		databaseStatement.execute(deleteCommand);
 	}
 }

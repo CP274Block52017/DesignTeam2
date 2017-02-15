@@ -11,7 +11,7 @@ import DataManipulation.DataObjectInterfaceClasses.DayStrings;
  * integer arrays to be passed to the neural network. 
  */
 
-public class PreprocessingController {
+public final class PreprocessingController {
 	
 	public List<DayStrings> removePrepositions(List<DayStrings> dayStoryList) throws FileNotFoundException{
 		PrepositionRemover prepRemover = new PrepositionRemover();

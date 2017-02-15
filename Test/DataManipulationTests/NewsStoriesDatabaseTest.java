@@ -87,7 +87,7 @@ public class NewsStoriesDatabaseTest {
 	
 	@After
 	public void cleanUp() throws SQLException{
-		//comment out deleteAll() if you want to check data in omnipredictor tables
-		NSController.deleteAll();
+		//comment out deleteAll() if you want to check data in NewsHeadlines table
+		NSController.deleteAll("NewsHeadlines");
 	}
 }

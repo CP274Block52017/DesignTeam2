@@ -107,6 +107,8 @@ public class ReadDateRangeFromDBTest {
 	@After
 	public void cleanUp() throws SQLException{
 		//comment out deleteAll() if you want to check data in omnipredictor tables
-		DJController.deleteAll();
+		DJController.deleteAll("DJOpening");
+		DJController.deleteAll("NewsHeadlines");
+
 	}
 }
